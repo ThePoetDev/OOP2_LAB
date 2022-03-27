@@ -26,36 +26,44 @@ namespace BoardGame
         private void btnLogIn_Click(object sender, EventArgs e)
         {
             List<string> user = new List<string>();
-            List<string> admin = new List<string>();
 
             user.Add("user/user");
-            admin.Add("admin/admin");
-
-            string[] userInfo = user[0].Split('/');
-            string[] adminInfo = admin[0].Split('/');
-            if (rbtnAdmin.Checked && txtUsername.Text == adminInfo[0] && txtPassword.Text == adminInfo[1])
+            user.Add("admin/admin");
+            user.Add("atesogluf/absfbhc");
+            user.Add("thepoetdev/122425");
+            user.Add("apple/12345");
+            foreach (var users in user)
             {
-                this.Visible = false;
-                MainGame mainGame = new MainGame();
-                mainGame.Show();
+                user.ToList();
             }
-            else if (rbtnUser.Checked && txtUsername.Text == userInfo[0] && txtPassword.Text == userInfo[1])
+            for (int i = 0; i < user.Count; i++)
             {
-                this.Visible = false;
-                MainGame mainGame = new MainGame();
-                mainGame.Show();
+                string[] userInfo = user[i].Split('/');
+                if (txtUsername.Text == userInfo[0] && txtPassword.Text == userInfo[1])
+                {
+                    this.Visible = false;
+                    MainGame mainGame = new MainGame();
+                    mainGame.Show();
+                    break;
+                   
+                }
+                else if((user.Count-1)==i)
+                {
+                    MessageBox.Show("User information not found. Please try again!");
+                    txtUsername.Select();
+                }
+                else if(txtUsername.Text != userInfo[0] && txtPassword.Text != userInfo[1])
+                {
+                    continue;
+                }
             }
-            else
-            {
-                MessageBox.Show("User information not found. Please try again!");
-            }
-            txtUsername.Text = " ";
-            txtPassword.Text = " ";
+            txtUsername.Text = "";
+            txtPassword.Text = "";
         }
 
         private void LogIn_Load(object sender, EventArgs e)
         {
-
+            this.AcceptButton = btnLogin;
         }
     }
 }
