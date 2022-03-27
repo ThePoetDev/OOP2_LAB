@@ -21,11 +21,11 @@ namespace BoardGame {
 
             if(streamReader.ReadLine() == null) {
                 StreamWriter streamWriter = new StreamWriter(fileStream);
-                streamWriter.Write("Easy;Square;0;0");
+                streamWriter.Write("Easy;NULL;NULL;NULL;0;0");
                 streamWriter.Close();
             }
             streamReader.Close();
-            fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
             streamReader = new StreamReader(fileStream);
             String[] str = streamReader.ReadLine().Split(';');
             fileStream.Close();
@@ -40,21 +40,33 @@ namespace BoardGame {
                 this.customRadioBtn.Checked = true;
             }
 
+            if (str[1] != null) {
+                if (str[1] == "Square") {
+                    this.squareCheckBox.Checked = true;
+                }
+            }
+
             if (str[2] != null) {
-                this.borderTextboxX.Text = str[2];
+                if (str[2] == "Circle") {
+                    this.circleCheckBox.Checked = true;
+                }
             }
 
             if (str[3] != null) {
-                this.borderTextboxY.Text = str[3];
+                if (str[3] == "Triangle") {
+                    this.triangleCheckBox.Checked = true;
+                }
             }
 
-            if (str[1] == "Square") {
-                this.squareRadioBtn.Checked = true;
-            }else if(str[1] == "Triangle") {
-                this.triangleRadioBtn.Checked = true;
-            }else if(str[1] == "Circle") {
-                this.circleRadioBtn.Checked = true;
+            if (str[4] != null) {
+                this.borderTextboxX.Text = str[4];
             }
+
+            if (str[5] != null) {
+                this.borderTextboxY.Text = str[5];
+            }
+
+            
         }
 
         private void easyRadioBtn_CheckedChanged(object sender, EventArgs e) {
@@ -73,33 +85,55 @@ namespace BoardGame {
             this.customPanel.Visible = true;
         }
 
-        private void squareRadioBtn_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void triangleRadioBtn_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void circleRadioBtn_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
         private void settingsSaveBtn_Click(object sender, EventArgs e) {
             var difficulty = this.difficultyPanel.Controls.OfType<RadioButton>().FirstOrDefault(r =>
             r.Checked);
-            var shape = this.shapePanel.Controls.OfType<RadioButton>().FirstOrDefault(r =>
-            r.Checked);
+            var square = this.squareCheckBox;
+            var circle = this.circleCheckBox;
+            var triangle = this.triangleCheckBox;
+
+            var squareStr = "";
+            var circleStr = "";
+            var triangleStr = "";
+
+            if (square.Checked) {
+                squareStr = "Square";
+            } else {
+                squareStr = "NULL";
+            }
+
+            if (circle.Checked) {
+                circleStr = "Circle";
+            }
+            else {
+                circleStr = "NULL";
+            }
+
+            if (triangle.Checked) {
+                triangleStr = "Triangle";
+            }
+            else {
+                triangleStr = "NULL";
+            }
 
             var x = this.borderTextboxX.Text;
             var y = this.borderTextboxY.Text;
 
-            String save = difficulty.Text + ";" + shape.Text + ";" + x + ";" + y;
+            if(x == "") {
+                x = "0";
+            }
 
-            FileStream fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.Open, FileAccess.Write, FileShare.None);
-            StreamWriter streamWriter = new StreamWriter(fileStream);
-            streamWriter.WriteLine(save);
-            streamWriter.Close();
+            if(y == "") {
+                y = "0";
+            }
+
+
+            String save = difficulty.Text + ";" + squareStr + ";" + circleStr + ";" + triangleStr + ";" + x + ";" + y;
+
+            FileStream fileStream2 = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.Open, FileAccess.Write, FileShare.None);
+            StreamWriter streamWriter2 = new StreamWriter(fileStream2);
+            streamWriter2.WriteLine(save);
+            streamWriter2.Close();
 
             MessageBox.Show("Successfully saved!");
         }
