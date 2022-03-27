@@ -30,11 +30,7 @@ namespace BoardGame {
             this.hardRadioBtn = new System.Windows.Forms.RadioButton();
             this.customRadioBtn = new System.Windows.Forms.RadioButton();
             this.shapeLabel = new System.Windows.Forms.Label();
-            this.squareRadioBtn = new System.Windows.Forms.RadioButton();
-            this.triangleRadioBtn = new System.Windows.Forms.RadioButton();
-            this.circleRadioBtn = new System.Windows.Forms.RadioButton();
             this.difficultyPanel = new System.Windows.Forms.Panel();
-            this.shapePanel = new System.Windows.Forms.Panel();
             this.customPanel = new System.Windows.Forms.Panel();
             this.borderTextboxY = new System.Windows.Forms.TextBox();
             this.borderTextboxX = new System.Windows.Forms.TextBox();
@@ -42,9 +38,13 @@ namespace BoardGame {
             this.customInt1Lbl = new System.Windows.Forms.Label();
             this.settingsSaveBtn = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
+            this.shapePanel = new System.Windows.Forms.Panel();
+            this.squareCheckBox = new System.Windows.Forms.CheckBox();
+            this.circleCheckBox = new System.Windows.Forms.CheckBox();
+            this.triangleCheckBox = new System.Windows.Forms.CheckBox();
             this.difficultyPanel.SuspendLayout();
-            this.shapePanel.SuspendLayout();
             this.customPanel.SuspendLayout();
+            this.shapePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // difficultyLabel
@@ -111,41 +111,6 @@ namespace BoardGame {
             this.shapeLabel.TabIndex = 5;
             this.shapeLabel.Text = "Shape :";
             // 
-            // squareRadioBtn
-            // 
-            this.squareRadioBtn.AutoSize = true;
-            this.squareRadioBtn.Checked = true;
-            this.squareRadioBtn.Location = new System.Drawing.Point(3, 3);
-            this.squareRadioBtn.Name = "squareRadioBtn";
-            this.squareRadioBtn.Size = new System.Drawing.Size(59, 17);
-            this.squareRadioBtn.TabIndex = 6;
-            this.squareRadioBtn.TabStop = true;
-            this.squareRadioBtn.Text = "Square";
-            this.squareRadioBtn.UseVisualStyleBackColor = true;
-            this.squareRadioBtn.CheckedChanged += new System.EventHandler(this.squareRadioBtn_CheckedChanged);
-            // 
-            // triangleRadioBtn
-            // 
-            this.triangleRadioBtn.AutoSize = true;
-            this.triangleRadioBtn.Location = new System.Drawing.Point(134, 3);
-            this.triangleRadioBtn.Name = "triangleRadioBtn";
-            this.triangleRadioBtn.Size = new System.Drawing.Size(63, 17);
-            this.triangleRadioBtn.TabIndex = 7;
-            this.triangleRadioBtn.Text = "Triangle";
-            this.triangleRadioBtn.UseVisualStyleBackColor = true;
-            this.triangleRadioBtn.CheckedChanged += new System.EventHandler(this.triangleRadioBtn_CheckedChanged);
-            // 
-            // circleRadioBtn
-            // 
-            this.circleRadioBtn.AutoSize = true;
-            this.circleRadioBtn.Location = new System.Drawing.Point(268, 3);
-            this.circleRadioBtn.Name = "circleRadioBtn";
-            this.circleRadioBtn.Size = new System.Drawing.Size(51, 17);
-            this.circleRadioBtn.TabIndex = 8;
-            this.circleRadioBtn.Text = "Circle";
-            this.circleRadioBtn.UseVisualStyleBackColor = true;
-            this.circleRadioBtn.CheckedChanged += new System.EventHandler(this.circleRadioBtn_CheckedChanged);
-            // 
             // difficultyPanel
             // 
             this.difficultyPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -159,16 +124,6 @@ namespace BoardGame {
             this.difficultyPanel.Name = "difficultyPanel";
             this.difficultyPanel.Size = new System.Drawing.Size(341, 25);
             this.difficultyPanel.TabIndex = 9;
-            // 
-            // shapePanel
-            // 
-            this.shapePanel.Controls.Add(this.squareRadioBtn);
-            this.shapePanel.Controls.Add(this.triangleRadioBtn);
-            this.shapePanel.Controls.Add(this.circleRadioBtn);
-            this.shapePanel.Location = new System.Drawing.Point(220, 109);
-            this.shapePanel.Name = "shapePanel";
-            this.shapePanel.Size = new System.Drawing.Size(338, 26);
-            this.shapePanel.TabIndex = 10;
             // 
             // customPanel
             // 
@@ -234,15 +189,55 @@ namespace BoardGame {
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // shapePanel
+            // 
+            this.shapePanel.Controls.Add(this.triangleCheckBox);
+            this.shapePanel.Controls.Add(this.circleCheckBox);
+            this.shapePanel.Controls.Add(this.squareCheckBox);
+            this.shapePanel.Location = new System.Drawing.Point(220, 109);
+            this.shapePanel.Name = "shapePanel";
+            this.shapePanel.Size = new System.Drawing.Size(341, 26);
+            this.shapePanel.TabIndex = 14;
+            // 
+            // squareCheckBox
+            // 
+            this.squareCheckBox.AutoSize = true;
+            this.squareCheckBox.Location = new System.Drawing.Point(3, 4);
+            this.squareCheckBox.Name = "squareCheckBox";
+            this.squareCheckBox.Size = new System.Drawing.Size(60, 17);
+            this.squareCheckBox.TabIndex = 0;
+            this.squareCheckBox.Text = "Square";
+            this.squareCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // circleCheckBox
+            // 
+            this.circleCheckBox.AutoSize = true;
+            this.circleCheckBox.Location = new System.Drawing.Point(134, 4);
+            this.circleCheckBox.Name = "circleCheckBox";
+            this.circleCheckBox.Size = new System.Drawing.Size(52, 17);
+            this.circleCheckBox.TabIndex = 1;
+            this.circleCheckBox.Text = "Circle";
+            this.circleCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // triangleCheckBox
+            // 
+            this.triangleCheckBox.AutoSize = true;
+            this.triangleCheckBox.Location = new System.Drawing.Point(264, 3);
+            this.triangleCheckBox.Name = "triangleCheckBox";
+            this.triangleCheckBox.Size = new System.Drawing.Size(64, 17);
+            this.triangleCheckBox.TabIndex = 2;
+            this.triangleCheckBox.Text = "Triangle";
+            this.triangleCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.shapePanel);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.settingsSaveBtn);
             this.Controls.Add(this.customPanel);
-            this.Controls.Add(this.shapePanel);
             this.Controls.Add(this.difficultyPanel);
             this.Controls.Add(this.shapeLabel);
             this.Controls.Add(this.difficultyLabel);
@@ -251,10 +246,10 @@ namespace BoardGame {
             this.Load += new System.EventHandler(this.Settings_Load);
             this.difficultyPanel.ResumeLayout(false);
             this.difficultyPanel.PerformLayout();
-            this.shapePanel.ResumeLayout(false);
-            this.shapePanel.PerformLayout();
             this.customPanel.ResumeLayout(false);
             this.customPanel.PerformLayout();
+            this.shapePanel.ResumeLayout(false);
+            this.shapePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,15 +265,15 @@ namespace BoardGame {
         private System.Windows.Forms.RadioButton medRadioBtn;
         private System.Windows.Forms.RadioButton hardRadioBtn;
         private System.Windows.Forms.RadioButton customRadioBtn;
-        private System.Windows.Forms.RadioButton squareRadioBtn;
-        private System.Windows.Forms.RadioButton triangleRadioBtn;
-        private System.Windows.Forms.RadioButton circleRadioBtn;
         private System.Windows.Forms.Panel difficultyPanel;
-        private System.Windows.Forms.Panel shapePanel;
         private System.Windows.Forms.Panel customPanel;
         private System.Windows.Forms.TextBox borderTextboxY;
         private System.Windows.Forms.TextBox borderTextboxX;
         private System.Windows.Forms.Button settingsSaveBtn;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Panel shapePanel;
+        private System.Windows.Forms.CheckBox triangleCheckBox;
+        private System.Windows.Forms.CheckBox circleCheckBox;
+        private System.Windows.Forms.CheckBox squareCheckBox;
     }
 }
