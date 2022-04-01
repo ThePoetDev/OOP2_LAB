@@ -21,7 +21,7 @@ namespace BoardGame {
 
             if(streamReader.ReadLine() == null) {
                 StreamWriter streamWriter = new StreamWriter(fileStream);
-                streamWriter.Write("Easy;NULL;NULL;NULL;0;0");
+                streamWriter.Write("Easy;NULL;NULL;NULL;NULL;NULL;NULL;0;0");
                 streamWriter.Close();
             }
             streamReader.Close();
@@ -59,11 +59,29 @@ namespace BoardGame {
             }
 
             if (str[4] != null) {
-                this.borderTextboxX.Text = str[4];
+                if (str[4] == "Red") {
+                    this.redCheckbox.Checked = true;
+                }
             }
 
             if (str[5] != null) {
-                this.borderTextboxY.Text = str[5];
+                if (str[5] == "Green") {
+                    this.greenCheckbox.Checked = true;
+                }
+            }
+
+            if (str[6] != null) {
+                if (str[6] == "Blue") {
+                    this.blueCheckbox.Checked = true;
+                }
+            }
+
+            if (str[7] != null) {
+                this.borderTextboxX.Text = str[7];
+            }
+
+            if (str[8] != null) {
+                this.borderTextboxY.Text = str[8];
             }
 
             
@@ -88,32 +106,52 @@ namespace BoardGame {
         private void settingsSaveBtn_Click(object sender, EventArgs e) {
             var difficulty = this.difficultyPanel.Controls.OfType<RadioButton>().FirstOrDefault(r =>
             r.Checked);
-            var square = this.squareCheckBox;
-            var circle = this.circleCheckBox;
-            var triangle = this.triangleCheckBox;
-
             var squareStr = "";
             var circleStr = "";
             var triangleStr = "";
+            var redStr = "";
+            var greenStr = "";
+            var blueStr = "";
 
-            if (square.Checked) {
+            if (this.squareCheckBox.Checked) {
                 squareStr = "Square";
             } else {
                 squareStr = "NULL";
             }
 
-            if (circle.Checked) {
+            if (this.circleCheckBox.Checked) {
                 circleStr = "Circle";
             }
             else {
                 circleStr = "NULL";
             }
 
-            if (triangle.Checked) {
+            if (this.triangleCheckBox.Checked) {
                 triangleStr = "Triangle";
             }
             else {
                 triangleStr = "NULL";
+            }
+
+            if (this.redCheckbox.Checked) {
+                redStr = "Red";
+            }
+            else {
+                redStr = "NULL";
+            }
+
+            if (this.greenCheckbox.Checked) {
+                greenStr = "Green";
+            }
+            else {
+                greenStr = "NULL";
+            }
+
+            if (this.blueCheckbox.Checked) {
+                blueStr = "Blue";
+            }
+            else {
+                blueStr = "NULL";
             }
 
             var x = this.borderTextboxX.Text;
@@ -128,7 +166,7 @@ namespace BoardGame {
             }
 
 
-            String save = difficulty.Text + ";" + squareStr + ";" + circleStr + ";" + triangleStr + ";" + x + ";" + y;
+            String save = difficulty.Text + ";" + squareStr + ";" + circleStr + ";" + triangleStr + ";" + redStr + ";" + greenStr + ";" + blueStr + ";" + x + ";" + y;
 
             FileStream fileStream2 = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.Open, FileAccess.Write, FileShare.None);
             StreamWriter streamWriter2 = new StreamWriter(fileStream2);
@@ -140,8 +178,6 @@ namespace BoardGame {
 
         private void backButton_Click(object sender, EventArgs e) {
             this.Visible = false;
-            MainGame mainGame = new MainGame();
-            mainGame.Show();
         }
     }
 }
