@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Linq;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace BoardGame
 {
@@ -17,53 +20,75 @@ namespace BoardGame
         {
             InitializeComponent();
         }
+        void load()
+        {
+            XmlDocument x = new XmlDocument();
+            DataSet ds = new DataSet();
+            XmlReader xmlFile;
+            xmlFile = XmlReader.Create(@"Veriler.xml", new XmlReaderSettings());
+            ds.ReadXml(xmlFile);
+            xmlFile.Close();
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            load();
         }
 
         private void btnLogIn_Click(object sender, EventArgs e)
         {
-            List<string> user = new List<string>();
-
-            user.Add("user/user");
-            user.Add("admin/admin");
-            user.Add("atesogluf/absfbhc");
-            user.Add("thepoetdev/122425");
-            user.Add("apple/12345");
-            foreach (var users in user)
+            XmlDocument x = new XmlDocument();
+            DataSet ds = new DataSet();
+            XmlReader xmlFile;
+            xmlFile = XmlReader.Create(@"Veriler.xml", new XmlReaderSettings());
+            ds.ReadXml(xmlFile);
+            x.Load("Veriler.xml");
+            XmlNodeList nameList = x.GetElementsByTagName("Username");
+            XmlNodeList passList = x.GetElementsByTagName("Password");
+            bool found =false;
+            for (int i = 0; i < nameList.Count; i++)
             {
-                user.ToList();
+                for(int j = 0; j < passList.Count; j++)
+                {
+                    if (nameList[i].InnerText == txtUsername.Text && txtPassword.Text == passList[j].InnerText)
+                    {
+                        this.Visible = false;
+                        MainGame mainGame = new MainGame();
+                        mainGame.Show();
+                        found = true;
+                        break;
+                    }
+                    else if(nameList[i].InnerText != txtUsername.Text && txtPassword.Text != passList[j].InnerText)
+                    {
+                        continue;
+                    }
+                }
             }
-            for (int i = 0; i < user.Count; i++)
+            if (found == false)
             {
-                string[] userInfo = user[i].Split('/');
-                if (txtUsername.Text == userInfo[0] && txtPassword.Text == userInfo[1])
-                {
-                    this.Visible = false;
-                    MainGame mainGame = new MainGame();
-                    mainGame.Show();
-                    break;
-                   
-                }
-                else if((user.Count-1)==i)
-                {
-                    MessageBox.Show("User information not found. Please try again!");
-                    txtUsername.Select();
-                }
-                else if(txtUsername.Text != userInfo[0] && txtPassword.Text != userInfo[1])
-                {
-                    continue;
-                }
+                MessageBox.Show("User information is not found. Please try again!");
             }
             txtUsername.Text = "";
             txtPassword.Text = "";
+            txtUsername.Focus();
         }
 
         private void LogIn_Load(object sender, EventArgs e)
         {
             this.AcceptButton = btnLogin;
+            
+        }
+
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            SignUp signUp = new SignUp();
+            signUp.Show();
+        }
+
+        private void LogIn_Shown(object sender, EventArgs e)
+        {
+            txtUsername.Focus();
         }
     }
 }

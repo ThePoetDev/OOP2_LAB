@@ -34,22 +34,27 @@ namespace BoardGame
             // 
             // mainSettingsBtn
             // 
-            this.mainSettingsBtn.Location = new System.Drawing.Point(320, 297);
+            this.mainSettingsBtn.BackColor = System.Drawing.Color.MediumPurple;
+            this.mainSettingsBtn.Location = new System.Drawing.Point(427, 366);
+            this.mainSettingsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.mainSettingsBtn.Name = "mainSettingsBtn";
-            this.mainSettingsBtn.Size = new System.Drawing.Size(155, 59);
+            this.mainSettingsBtn.Size = new System.Drawing.Size(207, 73);
             this.mainSettingsBtn.TabIndex = 0;
             this.mainSettingsBtn.Text = "Settings";
-            this.mainSettingsBtn.UseVisualStyleBackColor = true;
+            this.mainSettingsBtn.UseVisualStyleBackColor = false;
             this.mainSettingsBtn.Click += new System.EventHandler(this.mainSettingsBtn_Click);
             // 
             // MainGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.SkyBlue;
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.mainSettingsBtn);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainGame";
             this.Text = "MainGame";
+            this.Load += new System.EventHandler(this.MainGame_Load);
             this.ResumeLayout(false);
 
         }

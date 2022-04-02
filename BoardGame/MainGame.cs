@@ -22,5 +22,9 @@ namespace BoardGame
             Settings settings = new Settings();
             settings.Show();
         }
+
+        private void MainGame_Load(object sender, EventArgs e)
+        {
+        }
     }
 }

@@ -34,13 +34,14 @@ namespace BoardGame
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.btnSignUp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblUsername.Location = new System.Drawing.Point(93, 76);
+            this.lblUsername.Location = new System.Drawing.Point(179, 62);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(85, 18);
             this.lblUsername.TabIndex = 0;
@@ -50,7 +51,7 @@ namespace BoardGame
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPassword.Location = new System.Drawing.Point(96, 137);
+            this.lblPassword.Location = new System.Drawing.Point(179, 141);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(83, 18);
             this.lblPassword.TabIndex = 1;
@@ -58,14 +59,15 @@ namespace BoardGame
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(211, 76);
+            this.txtUsername.Location = new System.Drawing.Point(312, 58);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(216, 22);
             this.txtUsername.TabIndex = 3;
+            this.txtUsername.Tag = "ab";
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(211, 137);
+            this.txtPassword.Location = new System.Drawing.Point(312, 141);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(216, 22);
@@ -73,29 +75,46 @@ namespace BoardGame
             // 
             // btnLogin
             // 
+            this.btnLogin.BackColor = System.Drawing.Color.MediumPurple;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnLogin.Location = new System.Drawing.Point(262, 210);
+            this.btnLogin.Location = new System.Drawing.Point(195, 250);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(121, 42);
+            this.btnLogin.Size = new System.Drawing.Size(136, 42);
             this.btnLogin.TabIndex = 7;
             this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogIn_Click);
             this.btnLogin.Enter += new System.EventHandler(this.Form1_Load);
+            // 
+            // btnSignUp
+            // 
+            this.btnSignUp.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnSignUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnSignUp.Location = new System.Drawing.Point(392, 250);
+            this.btnSignUp.Name = "btnSignUp";
+            this.btnSignUp.Size = new System.Drawing.Size(136, 42);
+            this.btnSignUp.TabIndex = 8;
+            this.btnSignUp.Text = "Sign Up";
+            this.btnSignUp.UseVisualStyleBackColor = false;
+            this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUsername);
             this.Name = "LogIn";
+            this.Tag = "";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.LogIn_Load);
+            this.Shown += new System.EventHandler(this.LogIn_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,6 +127,7 @@ namespace BoardGame
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnSignUp;
     }
 }
 
