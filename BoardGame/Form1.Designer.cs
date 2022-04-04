@@ -35,6 +35,7 @@ namespace BoardGame
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnSignUp = new System.Windows.Forms.Button();
+            this.chckPassShown = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -64,6 +65,7 @@ namespace BoardGame
             this.txtUsername.Size = new System.Drawing.Size(216, 22);
             this.txtUsername.TabIndex = 3;
             this.txtUsername.Tag = "ab";
+            this.txtUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsername_KeyPress);
             // 
             // txtPassword
             // 
@@ -98,12 +100,24 @@ namespace BoardGame
             this.btnSignUp.UseVisualStyleBackColor = false;
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
             // 
+            // chckPassShown
+            // 
+            this.chckPassShown.AutoSize = true;
+            this.chckPassShown.Location = new System.Drawing.Point(182, 180);
+            this.chckPassShown.Name = "chckPassShown";
+            this.chckPassShown.Size = new System.Drawing.Size(152, 21);
+            this.chckPassShown.TabIndex = 9;
+            this.chckPassShown.Text = "Show the password";
+            this.chckPassShown.UseVisualStyleBackColor = true;
+            this.chckPassShown.CheckedChanged += new System.EventHandler(this.chckPassShown_CheckedChanged);
+            // 
             // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.chckPassShown);
             this.Controls.Add(this.btnSignUp);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
@@ -128,6 +142,7 @@ namespace BoardGame
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnSignUp;
+        private System.Windows.Forms.CheckBox chckPassShown;
     }
 }
 
