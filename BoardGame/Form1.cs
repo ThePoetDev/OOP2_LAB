@@ -20,7 +20,6 @@ namespace BoardGame
         {
             InitializeComponent();
         }
-        bool found = false;
         void load()
         {
             XmlDocument x = new XmlDocument();
@@ -71,6 +70,7 @@ namespace BoardGame
                 FileStream fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "girisbilgileri.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
                 StreamWriter streamWriter = new StreamWriter(fileStream);
                 streamWriter.WriteLine(txtUsername.Text + ";" + txtPassword.Text);
+                streamWriter.Close();
 
             }
    
@@ -86,15 +86,12 @@ namespace BoardGame
         private void LogIn_Load(object sender, EventArgs e)
         {
             this.AcceptButton = btnLogin;
-            if (found == true)
-            {
-                FileStream fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "girisbilgileri.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-                StreamReader streamReader = new StreamReader(fileStream);
-                String[] str = streamReader.ReadLine().Split(';');
-
-                this.txtUsername.Text = str[0];
-                this.txtPassword.Text = str[1];
-            }
+            FileStream fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "girisbilgileri.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            StreamWriter streamWriter = new StreamWriter(fileStream);
+            streamWriter.WriteLine(txtUsername.Text + ";" + txtPassword.Text);
+            StreamReader streamReader = new StreamReader(fileStream);
+            string[] str = streamReader.ReadLine().Split(';');
+            streamReader.Close();
 
         }
 
