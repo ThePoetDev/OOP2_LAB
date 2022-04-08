@@ -18,7 +18,6 @@ namespace BoardGame
         }
 
         private void mainSettingsBtn_Click(object sender, EventArgs e) {
-            this.Visible = false;
             Settings settings = new Settings();
             settings.Show();
         }

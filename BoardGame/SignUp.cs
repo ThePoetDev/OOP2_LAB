@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Security.Cryptography;
+using System.Xml.XPath;
 
 namespace BoardGame
 {
@@ -30,11 +32,15 @@ namespace BoardGame
 
         private void btnSign_Click(object sender, EventArgs e)
         {
-            XDocument x = XDocument.Load(@"Veriler.xml");
-            x.Element("Users").Add(
+            XDocument xml = XDocument.Load(@"Veriler.xml");
+            var sha = SHA256.Create();
+            var passwrd = txtPassword.Text;
+            string hashCode = Convert.ToBase64String(sha.ComputeHash(Encoding.Unicode.GetBytes(passwrd)));
+            xml.Element("Users").Add(
                 new XElement("user",
+                new XElement("type","user"),
                 new XElement("Username", txtUsername.Text),
-                new XElement("Password", txtPassword.Text),
+                new XElement("Password", hashCode),
                 new XElement("Name-Surname", txtNameSurname.Text),
                 new XElement("PhoneNumber", txtPnumber.Text),
                 new XElement("Address", txtAddress.Text),
@@ -42,7 +48,11 @@ namespace BoardGame
                 new XElement("Country", txtCountry.Text),
                 new XElement("Email", txtMail.Text)
                 ));
-            x.Save(@"Veriler.xml");
+            //foreach (XElement element in x.XPathSelectElement("//user").Descendants())
+            //{
+            //    string value = element.Value;
+            //}
+            xml.Save(@"Veriler.xml");
             load();
             MessageBox.Show("Signed up successfully");
             this.Visible = false;
@@ -51,6 +61,7 @@ namespace BoardGame
         private void SignUp_Load(object sender, EventArgs e)
         {
             load();
+            this.AcceptButton = btnSign;
         }
     }
 }
