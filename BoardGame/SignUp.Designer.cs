@@ -179,7 +179,7 @@ namespace BoardGame
             // btnSign
             // 
             this.btnSign.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnSign.Location = new System.Drawing.Point(352, 370);
+            this.btnSign.Location = new System.Drawing.Point(352, 386);
             this.btnSign.Name = "btnSign";
             this.btnSign.Size = new System.Drawing.Size(171, 36);
             this.btnSign.TabIndex = 16;
