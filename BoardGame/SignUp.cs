@@ -38,12 +38,7 @@ namespace BoardGame
             }
 
             XDocument xml = XDocument.Load(@"../../Veriler.xml");
-            var sha = SHA256.Create();
-            var passwrd = txtPassword.Text;
-            string hashCode = Convert.ToBase64String(sha.ComputeHash(Encoding.Unicode.GetBytes(passwrd)));
-
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
-            XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtUsername.Text);
+            XElement node = xml.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtUsername.Text);
 
             if (node != null) {
                 MessageBox.Show("There's already such a user.");
@@ -54,7 +49,7 @@ namespace BoardGame
                 new XElement("user",
                 new XElement("type","user"),
                 new XElement("Username", txtUsername.Text),
-                new XElement("Password", hashCode),
+                new XElement("Password", sha256_hash(this.txtPassword.Text)),
                 new XElement("Name-Surname", txtNameSurname.Text),
                 new XElement("PhoneNumber", txtPnumber.Text),
                 new XElement("Address", txtAddress.Text),
@@ -78,6 +73,31 @@ namespace BoardGame
         {
             load();
             this.AcceptButton = btnSign;
+        }
+
+
+        public static String sha256_hash(String value) {
+            StringBuilder Sb = new StringBuilder();
+
+            using (SHA256 hash = SHA256Managed.Create()) {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(value));
+
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+
+            return Sb.ToString();
+        }
+
+        private void txtUsername_KeyPress(object sender, KeyPressEventArgs e) {
+            e.Handled = !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsSeparator(e.KeyChar);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e) {
+            this.Hide();
+            LogIn logIn = new LogIn();
+            logIn.Show();
         }
     }
 }

@@ -25,5 +25,17 @@ namespace BoardGame
         private void MainGame_Load(object sender, EventArgs e)
         {
         }
+
+        private void btnProfile_Click(object sender, EventArgs e) {
+            this.Hide();
+            Profile profile = new Profile();
+            profile.Show();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e) {
+            this.Hide();
+            LogIn logIn = new LogIn();
+            logIn.Show();
+        }
     }
 }

@@ -48,18 +48,18 @@ namespace BoardGame
             XmlNodeList typeList = x.GetElementsByTagName("type");
             var shaTmp1 = SHA256.Create();
             var passwrd = passList[0].InnerText;
-            string hashCode1 = Convert.ToBase64String(shaTmp1.ComputeHash(Encoding.Unicode.GetBytes(passwrd)));
+            string hashCode1 = sha256_hash(passwrd);
             passList[0].InnerText = hashCode1;
             var shaTmp2 = SHA256.Create();
             var passwrd2 = passList[1].InnerText;
-            string hashCode2 = Convert.ToBase64String(shaTmp2.ComputeHash(Encoding.Unicode.GetBytes(passwrd2)));
+            string hashCode2 = sha256_hash(passwrd2);
             passList[1].InnerText = hashCode2;
             bool found = false;
             for (int i = 0; i < nameList.Count; i++)
             {
                 var sha = SHA256.Create();
                 var password = txtPassword.Text;
-                string hashCode = Convert.ToBase64String(sha.ComputeHash(Encoding.Unicode.GetBytes(password)));
+                string hashCode = sha256_hash(password);
                 if (nameList[i].InnerText == txtUsername.Text && hashCode == passList[i].InnerText)
                 {
                     if (typeList[i].InnerText == "admin")
@@ -134,6 +134,21 @@ namespace BoardGame
             {
                 txtPassword.PasswordChar = '*';
             }
+        }
+
+
+        public static String sha256_hash(String value) {
+            StringBuilder Sb = new StringBuilder();
+
+            using (SHA256 hash = SHA256Managed.Create()) {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(value));
+
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+
+            return Sb.ToString();
         }
     }
 }
