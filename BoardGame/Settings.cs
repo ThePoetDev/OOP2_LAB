@@ -9,222 +9,122 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BoardGame
-{
-    public partial class Settings : Form
-    {
-        public Settings()
-        {
+namespace BoardGame {
+    public partial class Settings : Form {
+        public Settings() {
             InitializeComponent();
         }
 
-        private void Settings_Load(object sender, EventArgs e)
-        {
+        private void Settings_Load(object sender, EventArgs e) {
             this.TopMost = true;
-            FileStream fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
-            StreamReader streamReader = new StreamReader(fileStream);
 
-            if (streamReader.ReadLine() == null)
-            {
-                StreamWriter streamWriter = new StreamWriter(fileStream);
-                streamWriter.Write("Easy;NULL;NULL;NULL;NULL;NULL;NULL;0;0");
-                streamWriter.Close();
-            }
-            streamReader.Close();
-            fileStream = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
-            streamReader = new StreamReader(fileStream);
-            String[] str = streamReader.ReadLine().Split(';');
-            fileStream.Close();
+            var properties = BoardGame.Properties.Settings.Default;
 
-            if (str[0] == "Easy")
-            {
+            if (properties.DifLevel == "Easy") {
                 this.easyRadioBtn.Checked = true;
-            }
-            else if (str[0] == "Medium")
-            {
+            } else if (properties.DifLevel == "Medium") {
                 this.medRadioBtn.Checked = true;
-            }
-            else if (str[0] == "Hard")
-            {
+            } else if (properties.DifLevel == "Hard") {
                 this.hardRadioBtn.Checked = true;
-            }
-            else if (str[0] == "Custom")
-            {
+            } else if (properties.DifLevel == "Custom") {
                 this.customRadioBtn.Checked = true;
             }
 
-            if (str[1] != null)
-            {
-                if (str[1] == "Square")
-                {
-                    this.squareCheckBox.Checked = true;
-                }
+            if (properties.ShapeSquare) {
+                this.squareCheckBox.Checked = true;
             }
 
-            if (str[2] != null)
-            {
-                if (str[2] == "Circle")
-                {
-                    this.circleCheckBox.Checked = true;
-                }
+            if (properties.ShapeCircle) {
+                this.circleCheckBox.Checked = true;
             }
 
-            if (str[3] != null)
-            {
-                if (str[3] == "Triangle")
-                {
-                    this.triangleCheckBox.Checked = true;
-                }
+            if (properties.ShapeTriangle) {
+                this.triangleCheckBox.Checked = true;
             }
 
-            if (str[4] != null)
-            {
-                if (str[4] == "Red")
-                {
-                    this.redCheckbox.Checked = true;
-                }
+            if (properties.ColorRed) {
+                this.redCheckbox.Checked = true;
             }
 
-            if (str[5] != null)
-            {
-                if (str[5] == "Green")
-                {
-                    this.greenCheckbox.Checked = true;
-                }
+            if (properties.ColorGreen) {
+                this.greenCheckbox.Checked = true;
             }
 
-            if (str[6] != null)
-            {
-                if (str[6] == "Blue")
-                {
-                    this.blueCheckbox.Checked = true;
-                }
+            if (properties.ColorBlue) {
+                this.blueCheckbox.Checked = true;
             }
 
-            if (str[7] != null)
-            {
-                this.borderTextboxX.Text = str[7];
-            }
-
-            if (str[8] != null)
-            {
-                this.borderTextboxY.Text = str[8];
-            }
+            this.borderTextboxX.Text = properties.BorderX;
+            this.borderTextboxY.Text = properties.BorderY;
 
 
         }
 
-        private void easyRadioBtn_CheckedChanged(object sender, EventArgs e)
-        {
+        private void easyRadioBtn_CheckedChanged(object sender, EventArgs e) {
             this.customPanel.Visible = false;
         }
 
-        private void medRadioBtn_CheckedChanged(object sender, EventArgs e)
-        {
+        private void medRadioBtn_CheckedChanged(object sender, EventArgs e) {
             this.customPanel.Visible = false;
         }
 
-        private void hardRadioBtn_CheckedChanged(object sender, EventArgs e)
-        {
+        private void hardRadioBtn_CheckedChanged(object sender, EventArgs e) {
             this.customPanel.Visible = false;
         }
 
-        private void customRadioBtn_CheckedChanged(object sender, EventArgs e)
-        {
+        private void customRadioBtn_CheckedChanged(object sender, EventArgs e) {
             this.customPanel.Visible = true;
         }
 
-        private void settingsSaveBtn_Click(object sender, EventArgs e)
-        {
-            var difficulty = this.difficultyPanel.Controls.OfType<RadioButton>().FirstOrDefault(r =>
-            r.Checked);
-            var squareStr = "";
-            var circleStr = "";
-            var triangleStr = "";
-            var redStr = "";
-            var greenStr = "";
-            var blueStr = "";
+        private void settingsSaveBtn_Click(object sender, EventArgs e) {
+            var difficulty = this.difficultyPanel.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
 
-            if (this.squareCheckBox.Checked)
-            {
-                squareStr = "Square";
-            }
-            else
-            {
-                squareStr = "NULL";
+            BoardGame.Properties.Settings.Default.DifLevel = difficulty.Text;
+
+            if (this.redCheckbox.Checked) {
+                BoardGame.Properties.Settings.Default.ColorRed = true;
+            } else {
+                BoardGame.Properties.Settings.Default.ColorRed = false;
             }
 
-            if (this.circleCheckBox.Checked)
-            {
-                circleStr = "Circle";
-            }
-            else
-            {
-                circleStr = "NULL";
+            if (this.greenCheckbox.Checked) {
+                BoardGame.Properties.Settings.Default.ColorGreen = true;
+            } else {
+                BoardGame.Properties.Settings.Default.ColorGreen = false;
             }
 
-            if (this.triangleCheckBox.Checked)
-            {
-                triangleStr = "Triangle";
-            }
-            else
-            {
-                triangleStr = "NULL";
+            if (this.blueCheckbox.Checked) {
+                BoardGame.Properties.Settings.Default.ColorBlue = true;
+            } else {
+                BoardGame.Properties.Settings.Default.ColorBlue = false;
             }
 
-            if (this.redCheckbox.Checked)
-            {
-                redStr = "Red";
-            }
-            else
-            {
-                redStr = "NULL";
+            if (this.squareCheckBox.Checked) {
+                BoardGame.Properties.Settings.Default.ShapeSquare = true;
+            } else {
+                BoardGame.Properties.Settings.Default.ShapeSquare = false;
             }
 
-            if (this.greenCheckbox.Checked)
-            {
-                greenStr = "Green";
-            }
-            else
-            {
-                greenStr = "NULL";
+            if (this.circleCheckBox.Checked) {
+                BoardGame.Properties.Settings.Default.ShapeCircle = true;
+            } else {
+                BoardGame.Properties.Settings.Default.ShapeCircle = false;
             }
 
-            if (this.blueCheckbox.Checked)
-            {
-                blueStr = "Blue";
-            }
-            else
-            {
-                blueStr = "NULL";
+            if (this.triangleCheckBox.Checked) {
+                BoardGame.Properties.Settings.Default.ShapeTriangle = true;
+            } else {
+                BoardGame.Properties.Settings.Default.ShapeTriangle = false;
             }
 
-            var x = this.borderTextboxX.Text;
-            var y = this.borderTextboxY.Text;
+            BoardGame.Properties.Settings.Default.BorderX = this.borderTextboxX.Text;
+            BoardGame.Properties.Settings.Default.BorderY = this.borderTextboxY.Text;
+            BoardGame.Properties.Settings.Default.Save();
 
-            if (x == "")
-            {
-                x = "0";
-            }
-
-            if (y == "")
-            {
-                y = "0";
-            }
-
-
-            String save = difficulty.Text + ";" + squareStr + ";" + circleStr + ";" + triangleStr + ";" + redStr + ";" + greenStr + ";" + blueStr + ";" + x + ";" + y;
-
-            FileStream fileStream2 = new FileStream(System.IO.Directory.GetCurrentDirectory() + "settings.txt", FileMode.Open, FileAccess.Write, FileShare.None);
-            StreamWriter streamWriter2 = new StreamWriter(fileStream2);
-            streamWriter2.WriteLine(save);
-            streamWriter2.Close();
-
-            MessageBox.Show("Successfully saved!");
+            MessageBox.Show("Settings successfully saved.");
         }
 
-        private void backButton_Click(object sender, EventArgs e)
-        {
+        private void backButton_Click(object sender, EventArgs e) {
             this.Visible = false;
         }
     }
