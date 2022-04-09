@@ -26,7 +26,7 @@ namespace BoardGame
             XmlDocument x = new XmlDocument();
             DataSet ds = new DataSet();
             XmlReader xmlFile;
-            xmlFile = XmlReader.Create(@"Veriler.xml", new XmlReaderSettings());
+            xmlFile = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
             ds.ReadXml(xmlFile);
             xmlFile.Close();
         }
