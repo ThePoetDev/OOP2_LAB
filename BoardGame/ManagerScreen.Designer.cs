@@ -57,6 +57,7 @@ namespace BoardGame
             // 
             // dataGridViewList
             // 
+            this.dataGridViewList.BackgroundColor = System.Drawing.Color.SkyBlue;
             this.dataGridViewList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewList.Location = new System.Drawing.Point(76, 12);
             this.dataGridViewList.Name = "dataGridViewList";
@@ -193,68 +194,75 @@ namespace BoardGame
             // 
             // btnBringInfo
             // 
+            this.btnBringInfo.BackColor = System.Drawing.Color.MediumPurple;
             this.btnBringInfo.Location = new System.Drawing.Point(684, 340);
             this.btnBringInfo.Name = "btnBringInfo";
             this.btnBringInfo.Size = new System.Drawing.Size(104, 34);
             this.btnBringInfo.TabIndex = 12;
             this.btnBringInfo.Text = "Bring Info";
-            this.btnBringInfo.UseVisualStyleBackColor = true;
+            this.btnBringInfo.UseVisualStyleBackColor = false;
             this.btnBringInfo.Click += new System.EventHandler(this.btnBringInfo_Click);
             // 
             // btnListAllUsers
             // 
+            this.btnListAllUsers.BackColor = System.Drawing.Color.MediumPurple;
             this.btnListAllUsers.Location = new System.Drawing.Point(684, 285);
             this.btnListAllUsers.Name = "btnListAllUsers";
             this.btnListAllUsers.Size = new System.Drawing.Size(104, 34);
             this.btnListAllUsers.TabIndex = 11;
             this.btnListAllUsers.Text = "List All Users";
-            this.btnListAllUsers.UseVisualStyleBackColor = true;
+            this.btnListAllUsers.UseVisualStyleBackColor = false;
             this.btnListAllUsers.Click += new System.EventHandler(this.btnListAllUsers_Click);
             // 
             // btnAddNewUser
             // 
+            this.btnAddNewUser.BackColor = System.Drawing.Color.MediumPurple;
             this.btnAddNewUser.Location = new System.Drawing.Point(684, 397);
             this.btnAddNewUser.Name = "btnAddNewUser";
             this.btnAddNewUser.Size = new System.Drawing.Size(104, 34);
             this.btnAddNewUser.TabIndex = 13;
             this.btnAddNewUser.Text = "Add New User";
-            this.btnAddNewUser.UseVisualStyleBackColor = true;
+            this.btnAddNewUser.UseVisualStyleBackColor = false;
             this.btnAddNewUser.Click += new System.EventHandler(this.btnAddNewUser_Click);
             // 
             // btnUpdateUser
             // 
+            this.btnUpdateUser.BackColor = System.Drawing.Color.MediumPurple;
             this.btnUpdateUser.Location = new System.Drawing.Point(684, 458);
             this.btnUpdateUser.Name = "btnUpdateUser";
             this.btnUpdateUser.Size = new System.Drawing.Size(104, 34);
             this.btnUpdateUser.TabIndex = 14;
             this.btnUpdateUser.Text = "Update User";
-            this.btnUpdateUser.UseVisualStyleBackColor = true;
+            this.btnUpdateUser.UseVisualStyleBackColor = false;
             this.btnUpdateUser.Click += new System.EventHandler(this.btnUpdateUser_Click);
             // 
             // btnDeleteUser
             // 
+            this.btnDeleteUser.BackColor = System.Drawing.Color.MediumPurple;
             this.btnDeleteUser.Location = new System.Drawing.Point(684, 517);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(104, 34);
             this.btnDeleteUser.TabIndex = 15;
             this.btnDeleteUser.Text = "Delete User";
-            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.UseVisualStyleBackColor = false;
             this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
             // 
             // btnBack
             // 
+            this.btnBack.BackColor = System.Drawing.Color.MediumPurple;
             this.btnBack.Location = new System.Drawing.Point(397, 595);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(150, 42);
             this.btnBack.TabIndex = 16;
             this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // ManagerScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(972, 650);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnListAllUsers);
