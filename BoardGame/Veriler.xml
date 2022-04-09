@@ -66,4 +66,15 @@
     <Country></Country>
     <Email></Email>
   </user>
+  <user>
+    <type>user</type>
+    <Username></Username>
+    <Password>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</Password>
+    <Name-Surname></Name-Surname>
+    <PhoneNumber></PhoneNumber>
+    <Address></Address>
+    <City></City>
+    <Country></Country>
+    <Email></Email>
+  </user>
 </Users>

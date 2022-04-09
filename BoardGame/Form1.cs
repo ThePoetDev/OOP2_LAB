@@ -65,7 +65,7 @@ namespace BoardGame
                     if (typeList[i].InnerText == "admin")
                     {
                         this.Visible = false;
-                        ManagerScreen manager = new ManagerScreen();
+                        MainGame manager = new MainGame();
                         manager.Show();
                         found = true;
                         break;
