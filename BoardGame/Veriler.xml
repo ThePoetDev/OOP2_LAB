@@ -46,35 +46,13 @@
   </user>
   <user>
     <type>user</type>
-    <Username>kingg</Username>
-    <Password>Wb+wIuSh6ksf2EdPxxsf56PznaE2j3xGmEFJ+Nwhswk=</Password>
-    <Name-Surname></Name-Surname>
-    <PhoneNumber></PhoneNumber>
-    <Address></Address>
-    <City></City>
-    <Country></Country>
-    <Email></Email>
-  </user>
-  <user>
-    <type>user</type>
-    <Username></Username>
-    <Password>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</Password>
-    <Name-Surname></Name-Surname>
-    <PhoneNumber></PhoneNumber>
-    <Address></Address>
-    <City></City>
-    <Country></Country>
-    <Email></Email>
-  </user>
-  <user>
-    <type>user</type>
-    <Username></Username>
-    <Password>47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=</Password>
-    <Name-Surname></Name-Surname>
-    <PhoneNumber></PhoneNumber>
-    <Address></Address>
-    <City></City>
-    <Country></Country>
-    <Email></Email>
+    <Username>ThePoetDev</Username>
+    <Password>k23bBeARXrWkpUfZ5gly1xuvrTWVnoZeiwTxgAh0e4M=</Password>
+    <Name-Surname>ThePoet Dev</Name-Surname>
+    <PhoneNumber>555-555-5555</PhoneNumber>
+    <Address>Test address</Address>
+    <City>Test City</City>
+    <Country>Test Country</Country>
+    <Email>testmail@testmail.com</Email>
   </user>
 </Users>

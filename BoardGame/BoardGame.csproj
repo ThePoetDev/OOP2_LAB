@@ -85,6 +85,9 @@
     <EmbeddedResource Include="MainGame.resx">
       <DependentUpon>MainGame.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManagerScreen.resx">
+      <DependentUpon>ManagerScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
