@@ -25,14 +25,14 @@ namespace BoardGame
             XmlDocument x = new XmlDocument();
             DataSet ds = new DataSet();
             XmlReader xmlFile;
-            xmlFile = XmlReader.Create(@"Veriler.xml", new XmlReaderSettings());
+            xmlFile = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
             ds.ReadXml(xmlFile);
             xmlFile.Close();
         }
 
         private void btnSign_Click(object sender, EventArgs e)
         {
-            XDocument xml = XDocument.Load(@"Veriler.xml");
+            XDocument xml = XDocument.Load(@"../../Veriler.xml");
             var sha = SHA256.Create();
             var passwrd = txtPassword.Text;
             string hashCode = Convert.ToBase64String(sha.ComputeHash(Encoding.Unicode.GetBytes(passwrd)));
@@ -52,7 +52,7 @@ namespace BoardGame
             //{
             //    string value = element.Value;
             //}
-            xml.Save(@"Veriler.xml");
+            xml.Save(@"../../Veriler.xml");
             load();
             MessageBox.Show("Signed up successfully");
             this.Visible = false;

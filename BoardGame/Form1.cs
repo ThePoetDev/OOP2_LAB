@@ -40,9 +40,9 @@ namespace BoardGame
             XmlDocument x = new XmlDocument();
             DataSet ds = new DataSet();
             XmlReader xmlFile;
-            xmlFile = XmlReader.Create(@"Veriler.xml", new XmlReaderSettings());
+            xmlFile = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
             ds.ReadXml(xmlFile);
-            x.Load("Veriler.xml");
+            x.Load(@"../../Veriler.xml");
             XmlNodeList nameList = x.GetElementsByTagName("Username");
             XmlNodeList passList = x.GetElementsByTagName("Password");
             XmlNodeList typeList = x.GetElementsByTagName("type");
