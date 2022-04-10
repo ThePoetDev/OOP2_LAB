@@ -30,7 +30,6 @@ namespace BoardGame
         private void InitializeComponent()
         {
             this.dataGridViewList = new System.Windows.Forms.DataGridView();
-            this.lblPassword = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblNamesurname = new System.Windows.Forms.Label();
             this.lblPhonenumber = new System.Windows.Forms.Label();
@@ -39,7 +38,6 @@ namespace BoardGame
             this.lblCountry = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtboxUsername = new System.Windows.Forms.TextBox();
-            this.txtboxPassword = new System.Windows.Forms.TextBox();
             this.txtboxNameSurname = new System.Windows.Forms.TextBox();
             this.txtboxPhonenum = new System.Windows.Forms.TextBox();
             this.txtboxAddress = new System.Windows.Forms.TextBox();
@@ -64,15 +62,6 @@ namespace BoardGame
             this.dataGridViewList.Size = new System.Drawing.Size(823, 247);
             this.dataGridViewList.TabIndex = 0;
             // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(171, 323);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 1;
-            this.lblPassword.Text = "Password";
-            // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
@@ -85,7 +74,7 @@ namespace BoardGame
             // lblNamesurname
             // 
             this.lblNamesurname.AutoSize = true;
-            this.lblNamesurname.Location = new System.Drawing.Point(171, 361);
+            this.lblNamesurname.Location = new System.Drawing.Point(171, 323);
             this.lblNamesurname.Name = "lblNamesurname";
             this.lblNamesurname.Size = new System.Drawing.Size(80, 13);
             this.lblNamesurname.TabIndex = 1;
@@ -94,7 +83,7 @@ namespace BoardGame
             // lblPhonenumber
             // 
             this.lblPhonenumber.AutoSize = true;
-            this.lblPhonenumber.Location = new System.Drawing.Point(171, 397);
+            this.lblPhonenumber.Location = new System.Drawing.Point(171, 359);
             this.lblPhonenumber.Name = "lblPhonenumber";
             this.lblPhonenumber.Size = new System.Drawing.Size(78, 13);
             this.lblPhonenumber.TabIndex = 2;
@@ -103,7 +92,7 @@ namespace BoardGame
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
-            this.lblAddress.Location = new System.Drawing.Point(171, 433);
+            this.lblAddress.Location = new System.Drawing.Point(171, 395);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(45, 13);
             this.lblAddress.TabIndex = 2;
@@ -112,7 +101,7 @@ namespace BoardGame
             // lblCity
             // 
             this.lblCity.AutoSize = true;
-            this.lblCity.Location = new System.Drawing.Point(171, 469);
+            this.lblCity.Location = new System.Drawing.Point(171, 431);
             this.lblCity.Name = "lblCity";
             this.lblCity.Size = new System.Drawing.Size(24, 13);
             this.lblCity.TabIndex = 2;
@@ -121,7 +110,7 @@ namespace BoardGame
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(171, 503);
+            this.lblCountry.Location = new System.Drawing.Point(171, 465);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
             this.lblCountry.TabIndex = 2;
@@ -130,7 +119,7 @@ namespace BoardGame
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(171, 538);
+            this.lblEmail.Location = new System.Drawing.Point(171, 500);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(32, 13);
             this.lblEmail.TabIndex = 2;
@@ -143,51 +132,44 @@ namespace BoardGame
             this.txtboxUsername.Size = new System.Drawing.Size(162, 20);
             this.txtboxUsername.TabIndex = 3;
             // 
-            // txtboxPassword
-            // 
-            this.txtboxPassword.Location = new System.Drawing.Point(309, 320);
-            this.txtboxPassword.Name = "txtboxPassword";
-            this.txtboxPassword.Size = new System.Drawing.Size(162, 20);
-            this.txtboxPassword.TabIndex = 4;
-            // 
             // txtboxNameSurname
             // 
-            this.txtboxNameSurname.Location = new System.Drawing.Point(309, 358);
+            this.txtboxNameSurname.Location = new System.Drawing.Point(309, 320);
             this.txtboxNameSurname.Name = "txtboxNameSurname";
             this.txtboxNameSurname.Size = new System.Drawing.Size(162, 20);
             this.txtboxNameSurname.TabIndex = 5;
             // 
             // txtboxPhonenum
             // 
-            this.txtboxPhonenum.Location = new System.Drawing.Point(309, 394);
+            this.txtboxPhonenum.Location = new System.Drawing.Point(309, 356);
             this.txtboxPhonenum.Name = "txtboxPhonenum";
             this.txtboxPhonenum.Size = new System.Drawing.Size(162, 20);
             this.txtboxPhonenum.TabIndex = 6;
             // 
             // txtboxAddress
             // 
-            this.txtboxAddress.Location = new System.Drawing.Point(309, 430);
+            this.txtboxAddress.Location = new System.Drawing.Point(309, 392);
             this.txtboxAddress.Name = "txtboxAddress";
             this.txtboxAddress.Size = new System.Drawing.Size(162, 20);
             this.txtboxAddress.TabIndex = 7;
             // 
             // txtboxCity
             // 
-            this.txtboxCity.Location = new System.Drawing.Point(309, 466);
+            this.txtboxCity.Location = new System.Drawing.Point(309, 428);
             this.txtboxCity.Name = "txtboxCity";
             this.txtboxCity.Size = new System.Drawing.Size(162, 20);
             this.txtboxCity.TabIndex = 8;
             // 
             // txtboxCountry
             // 
-            this.txtboxCountry.Location = new System.Drawing.Point(309, 500);
+            this.txtboxCountry.Location = new System.Drawing.Point(309, 462);
             this.txtboxCountry.Name = "txtboxCountry";
             this.txtboxCountry.Size = new System.Drawing.Size(162, 20);
             this.txtboxCountry.TabIndex = 9;
             // 
             // txtboxEmail
             // 
-            this.txtboxEmail.Location = new System.Drawing.Point(309, 535);
+            this.txtboxEmail.Location = new System.Drawing.Point(309, 497);
             this.txtboxEmail.Name = "txtboxEmail";
             this.txtboxEmail.Size = new System.Drawing.Size(162, 20);
             this.txtboxEmail.TabIndex = 10;
@@ -276,7 +258,6 @@ namespace BoardGame
             this.Controls.Add(this.txtboxAddress);
             this.Controls.Add(this.txtboxPhonenum);
             this.Controls.Add(this.txtboxNameSurname);
-            this.Controls.Add(this.txtboxPassword);
             this.Controls.Add(this.txtboxUsername);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.lblCountry);
@@ -285,7 +266,6 @@ namespace BoardGame
             this.Controls.Add(this.lblPhonenumber);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblNamesurname);
-            this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.dataGridViewList);
             this.Name = "ManagerScreen";
             this.Text = "ManagerScreen";
@@ -298,7 +278,6 @@ namespace BoardGame
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewList;
-        private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblNamesurname;
         private System.Windows.Forms.Label lblPhonenumber;
@@ -307,7 +286,6 @@ namespace BoardGame
         private System.Windows.Forms.Label lblCountry;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtboxUsername;
-        private System.Windows.Forms.TextBox txtboxPassword;
         private System.Windows.Forms.TextBox txtboxNameSurname;
         private System.Windows.Forms.TextBox txtboxPhonenum;
         private System.Windows.Forms.TextBox txtboxAddress;

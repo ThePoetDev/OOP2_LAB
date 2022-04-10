@@ -3,7 +3,7 @@
   <user>
     <type>user</type>
     <Username>user</Username>
-    <Password>user</Password>
+    <Password>04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb</Password>
     <Name-Surname></Name-Surname>
     <PhoneNumber></PhoneNumber>
     <Address></Address>
@@ -14,7 +14,7 @@
   <user>
     <type>admin</type>
     <Username>admin</Username>
-    <Password>admin</Password>
+    <Password>8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918</Password>
     <Name-Surname></Name-Surname>
     <PhoneNumber></PhoneNumber>
     <Address></Address>
@@ -37,7 +37,7 @@
     <type>user</type>
     <Username>poet</Username>
     <Password>30c952fab122c3f9759f02a6d95c3758b246b4fee239957b2d4fee46e26170c4</Password>
-    <Name-Surname>psa</Name-Surname>
+    <Name-Surname>psasa</Name-Surname>
     <PhoneNumber>p</PhoneNumber>
     <Address>p</Address>
     <City>p</City>
@@ -76,16 +76,5 @@
     <City>Test City</City>
     <Country>Test Country</Country>
     <Email>Testing</Email>
-  </user>
-  <user>
-    <type>user</type>
-    <Username>testtt</Username>
-    <Password>0991f50165ea9a626e86ae12845939415f154001ce4154f0b60aca47f5230c12</Password>
-    <Name-Surname>s</Name-Surname>
-    <PhoneNumber>s</PhoneNumber>
-    <Address>s</Address>
-    <City>s</City>
-    <Country>ss</Country>
-    <Email>s</Email>
   </user>
 </Users>

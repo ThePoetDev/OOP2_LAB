@@ -39,7 +39,6 @@ namespace BoardGame {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-
             XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
             XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtboxUsername.Text);
 

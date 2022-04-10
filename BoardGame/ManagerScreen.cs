@@ -32,7 +32,6 @@ namespace BoardGame
 
             if (node != null) {
                 this.txtboxUsername.Text = str;
-                this.txtboxPassword.Text = (string)node.Element("Password");
                 this.txtboxNameSurname.Text = (string)node.Element("Name-Surname");
                 this.txtboxPhonenum.Text = (string)node.Element("PhoneNumber");
                 this.txtboxAddress.Text = (string)node.Element("Address");
@@ -58,7 +57,6 @@ namespace BoardGame
                 new XElement("user",
                 new XElement("type", "user"),
                 new XElement("Username", txtboxUsername.Text),
-                new XElement("Password", sha256_hash(this.txtboxPassword.Text)),
                 new XElement("Name-Surname", txtboxNameSurname.Text),
                 new XElement("PhoneNumber", txtboxPhonenum.Text),
                 new XElement("Address", txtboxAddress.Text),
@@ -116,6 +114,7 @@ namespace BoardGame
             XmlReader xmlReader = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
             ds.ReadXml(xmlReader);
             dataGridViewList.DataSource = ds.Tables[0];
+            dataGridViewList.Columns.RemoveAt(2);
             xmlReader.Close();
         }
 

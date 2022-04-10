@@ -46,21 +46,12 @@ namespace BoardGame
             XmlNodeList nameList = x.GetElementsByTagName("Username");
             XmlNodeList passList = x.GetElementsByTagName("Password");
             XmlNodeList typeList = x.GetElementsByTagName("type");
-            var shaTmp1 = SHA256.Create();
-            var passwrd = passList[0].InnerText;
-            string hashCode1 = sha256_hash(passwrd);
-            passList[0].InnerText = hashCode1;
-            var shaTmp2 = SHA256.Create();
-            var passwrd2 = passList[1].InnerText;
-            string hashCode2 = sha256_hash(passwrd2);
-            passList[1].InnerText = hashCode2;
             bool found = false;
             for (int i = 0; i < nameList.Count; i++)
             {
-                var sha = SHA256.Create();
-                var password = txtPassword.Text;
-                string hashCode = sha256_hash(password);
-                if (nameList[i].InnerText == txtUsername.Text && hashCode == passList[i].InnerText)
+                var hashXML = passList[i].InnerText;
+                string hashText = sha256_hash(txtPassword.Text);
+                if (nameList[i].InnerText == txtUsername.Text && hashText == hashXML)
                 {
                     if (typeList[i].InnerText == "admin")
                     {
@@ -79,7 +70,7 @@ namespace BoardGame
                         break;
                     }
                 }
-                else if (nameList[i].InnerText != txtUsername.Text && hashCode != passList[i].InnerText)
+                else if (nameList[i].InnerText != txtUsername.Text && hashText != hashXML)
                 {
                     continue;
                 }
