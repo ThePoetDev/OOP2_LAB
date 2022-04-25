@@ -37,5 +37,11 @@ namespace BoardGame
             LogIn logIn = new LogIn();
             logIn.Show();
         }
+
+        private void btnCredits_Click(object sender, EventArgs e) {
+            this.Enabled = false;
+            Credits credits = new Credits();
+            credits.Show();
+        }
     }
 }

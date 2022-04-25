@@ -32,12 +32,13 @@ namespace BoardGame
             this.mainSettingsBtn = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.btnCredits = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mainSettingsBtn
             // 
             this.mainSettingsBtn.BackColor = System.Drawing.Color.MediumPurple;
-            this.mainSettingsBtn.Location = new System.Drawing.Point(320, 236);
+            this.mainSettingsBtn.Location = new System.Drawing.Point(320, 171);
             this.mainSettingsBtn.Name = "mainSettingsBtn";
             this.mainSettingsBtn.Size = new System.Drawing.Size(155, 59);
             this.mainSettingsBtn.TabIndex = 0;
@@ -48,7 +49,7 @@ namespace BoardGame
             // btnProfile
             // 
             this.btnProfile.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnProfile.Location = new System.Drawing.Point(320, 171);
+            this.btnProfile.Location = new System.Drawing.Point(320, 106);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(155, 59);
             this.btnProfile.TabIndex = 0;
@@ -67,6 +68,17 @@ namespace BoardGame
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // btnCredits
+            // 
+            this.btnCredits.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnCredits.Location = new System.Drawing.Point(320, 236);
+            this.btnCredits.Name = "btnCredits";
+            this.btnCredits.Size = new System.Drawing.Size(155, 59);
+            this.btnCredits.TabIndex = 0;
+            this.btnCredits.Text = "Credits";
+            this.btnCredits.UseVisualStyleBackColor = false;
+            this.btnCredits.Click += new System.EventHandler(this.btnCredits_Click);
+            // 
             // MainGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -75,6 +87,7 @@ namespace BoardGame
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnProfile);
+            this.Controls.Add(this.btnCredits);
             this.Controls.Add(this.mainSettingsBtn);
             this.Name = "MainGame";
             this.Text = "MainGame";
@@ -88,5 +101,6 @@ namespace BoardGame
         private System.Windows.Forms.Button mainSettingsBtn;
         private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.Button btnCredits;
     }
 }
