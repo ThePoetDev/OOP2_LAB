@@ -67,6 +67,9 @@ namespace BoardGame {
             this.Controls.Add(this.lblCreditsGameName);
             this.Name = "Credits";
             this.Text = "Credits";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
