@@ -43,5 +43,11 @@ namespace BoardGame
             Credits credits = new Credits();
             credits.Show();
         }
+
+        private void btnPlay_Click(object sender, EventArgs e) {
+            this.Hide();
+            Game game = new Game();
+            game.Show();
+        }
     }
 }
