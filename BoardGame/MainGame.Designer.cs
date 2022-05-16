@@ -41,7 +41,7 @@ namespace BoardGame
             // 
             this.mainSettingsBtn.BackColor = System.Drawing.Color.MediumPurple;
             this.mainSettingsBtn.Location = new System.Drawing.Point(427, 227);
-            this.mainSettingsBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mainSettingsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.mainSettingsBtn.Name = "mainSettingsBtn";
             this.mainSettingsBtn.Size = new System.Drawing.Size(207, 73);
             this.mainSettingsBtn.TabIndex = 0;
@@ -53,7 +53,7 @@ namespace BoardGame
             // 
             this.btnProfile.BackColor = System.Drawing.Color.MediumPurple;
             this.btnProfile.Location = new System.Drawing.Point(427, 146);
-            this.btnProfile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProfile.Margin = new System.Windows.Forms.Padding(4);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(207, 73);
             this.btnProfile.TabIndex = 0;
@@ -65,7 +65,7 @@ namespace BoardGame
             // 
             this.btnBack.BackColor = System.Drawing.Color.MediumPurple;
             this.btnBack.Location = new System.Drawing.Point(427, 468);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(207, 73);
             this.btnBack.TabIndex = 0;
@@ -77,7 +77,7 @@ namespace BoardGame
             // 
             this.btnCredits.BackColor = System.Drawing.Color.MediumPurple;
             this.btnCredits.Location = new System.Drawing.Point(427, 308);
-            this.btnCredits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCredits.Margin = new System.Windows.Forms.Padding(4);
             this.btnCredits.Name = "btnCredits";
             this.btnCredits.Size = new System.Drawing.Size(207, 73);
             this.btnCredits.TabIndex = 0;
@@ -89,7 +89,7 @@ namespace BoardGame
             // 
             this.btnPlay.BackColor = System.Drawing.Color.MediumPurple;
             this.btnPlay.Location = new System.Drawing.Point(427, 65);
-            this.btnPlay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlay.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(207, 73);
             this.btnPlay.TabIndex = 0;
@@ -99,12 +99,13 @@ namespace BoardGame
             // 
             // btnHelp
             // 
+            this.btnHelp.BackColor = System.Drawing.Color.MediumPurple;
             this.btnHelp.Location = new System.Drawing.Point(427, 388);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(207, 73);
             this.btnHelp.TabIndex = 1;
             this.btnHelp.Text = "Help";
-            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.UseVisualStyleBackColor = false;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // MainGame
@@ -119,7 +120,7 @@ namespace BoardGame
             this.Controls.Add(this.btnProfile);
             this.Controls.Add(this.btnCredits);
             this.Controls.Add(this.mainSettingsBtn);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainGame";
             this.Text = "MainGame";
             this.Load += new System.EventHandler(this.MainGame_Load);

@@ -159,11 +159,6 @@ namespace BoardGame
                                 }
                             }
                         }
-                        if (btnGrid[i, j].Image == btnGrid[i + 1, j].Image)
-                        {
-                            btnGrid[i, j].Image = null;
-                            btnGrid[i+1, j].Image = null;
-                        }
                         shapeColorList++;
                     }
                     btnGrid[i, j].Click += Grid_Button_Click;

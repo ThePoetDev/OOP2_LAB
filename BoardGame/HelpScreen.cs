@@ -29,9 +29,9 @@ namespace BoardGame
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Enabled = false;
             Credits credits = new Credits();
-            credits.Show();
+            if (credits.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
         }
     }
 }
