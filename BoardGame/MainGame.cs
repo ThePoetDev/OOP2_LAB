@@ -49,5 +49,12 @@ namespace BoardGame
             Game game = new Game();
             game.Show();
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            this.Enabled = false;
+            HelpScreen helpScreen = new HelpScreen();
+            helpScreen.Show();
+        }
     }
 }
