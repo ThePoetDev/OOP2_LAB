@@ -19,7 +19,8 @@ namespace BoardGame
 
         private void mainSettingsBtn_Click(object sender, EventArgs e) {
             Settings settings = new Settings();
-            settings.Show();
+            if (settings.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
         }
 
         private void MainGame_Load(object sender, EventArgs e)
@@ -27,27 +28,34 @@ namespace BoardGame
         }
 
         private void btnProfile_Click(object sender, EventArgs e) {
-            this.Hide();
             Profile profile = new Profile();
-            profile.Show();
+            if (profile.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
-            this.Hide();
             LogIn logIn = new LogIn();
-            logIn.Show();
+            if (logIn.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
         }
 
         private void btnCredits_Click(object sender, EventArgs e) {
-            this.Enabled = false;
             Credits credits = new Credits();
-            credits.Show();
+            if (credits.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
         }
 
         private void btnPlay_Click(object sender, EventArgs e) {
-            this.Hide();
             Game game = new Game();
-            game.Show();
+            if (game.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
+    }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            HelpScreen helpScreen = new HelpScreen();
+            if (helpScreen.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
         }
     }
 }

@@ -34,14 +34,16 @@ namespace BoardGame
             this.btnBack = new System.Windows.Forms.Button();
             this.btnCredits = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mainSettingsBtn
             // 
             this.mainSettingsBtn.BackColor = System.Drawing.Color.MediumPurple;
-            this.mainSettingsBtn.Location = new System.Drawing.Point(320, 210);
+            this.mainSettingsBtn.Location = new System.Drawing.Point(427, 227);
+            this.mainSettingsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.mainSettingsBtn.Name = "mainSettingsBtn";
-            this.mainSettingsBtn.Size = new System.Drawing.Size(155, 59);
+            this.mainSettingsBtn.Size = new System.Drawing.Size(207, 73);
             this.mainSettingsBtn.TabIndex = 0;
             this.mainSettingsBtn.Text = "Settings";
             this.mainSettingsBtn.UseVisualStyleBackColor = false;
@@ -50,9 +52,10 @@ namespace BoardGame
             // btnProfile
             // 
             this.btnProfile.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnProfile.Location = new System.Drawing.Point(320, 145);
+            this.btnProfile.Location = new System.Drawing.Point(427, 146);
+            this.btnProfile.Margin = new System.Windows.Forms.Padding(4);
             this.btnProfile.Name = "btnProfile";
-            this.btnProfile.Size = new System.Drawing.Size(155, 59);
+            this.btnProfile.Size = new System.Drawing.Size(207, 73);
             this.btnProfile.TabIndex = 0;
             this.btnProfile.Text = "Profile";
             this.btnProfile.UseVisualStyleBackColor = false;
@@ -61,9 +64,10 @@ namespace BoardGame
             // btnBack
             // 
             this.btnBack.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnBack.Location = new System.Drawing.Point(320, 340);
+            this.btnBack.Location = new System.Drawing.Point(427, 468);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(155, 59);
+            this.btnBack.Size = new System.Drawing.Size(207, 73);
             this.btnBack.TabIndex = 0;
             this.btnBack.Text = "Log Out";
             this.btnBack.UseVisualStyleBackColor = false;
@@ -72,9 +76,10 @@ namespace BoardGame
             // btnCredits
             // 
             this.btnCredits.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnCredits.Location = new System.Drawing.Point(320, 275);
+            this.btnCredits.Location = new System.Drawing.Point(427, 308);
+            this.btnCredits.Margin = new System.Windows.Forms.Padding(4);
             this.btnCredits.Name = "btnCredits";
-            this.btnCredits.Size = new System.Drawing.Size(155, 59);
+            this.btnCredits.Size = new System.Drawing.Size(207, 73);
             this.btnCredits.TabIndex = 0;
             this.btnCredits.Text = "Credits";
             this.btnCredits.UseVisualStyleBackColor = false;
@@ -83,25 +88,39 @@ namespace BoardGame
             // btnPlay
             // 
             this.btnPlay.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnPlay.Location = new System.Drawing.Point(320, 80);
+            this.btnPlay.Location = new System.Drawing.Point(427, 65);
+            this.btnPlay.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(155, 59);
+            this.btnPlay.Size = new System.Drawing.Size(207, 73);
             this.btnPlay.TabIndex = 0;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
+            // btnHelp
+            // 
+            this.btnHelp.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnHelp.Location = new System.Drawing.Point(427, 388);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(207, 73);
+            this.btnHelp.TabIndex = 1;
+            this.btnHelp.Text = "Help";
+            this.btnHelp.UseVisualStyleBackColor = false;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
             // MainGame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnProfile);
             this.Controls.Add(this.btnCredits);
             this.Controls.Add(this.mainSettingsBtn);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainGame";
             this.Text = "MainGame";
             this.Load += new System.EventHandler(this.MainGame_Load);
@@ -116,5 +135,6 @@ namespace BoardGame
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnCredits;
         private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
