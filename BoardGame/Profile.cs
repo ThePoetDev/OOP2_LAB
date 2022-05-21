@@ -9,9 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Data.SqlClient;
 
 namespace BoardGame {
     public partial class Profile : Form {
+
+        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        SqlConnection sqlConnection = new SqlConnection(connectionString);
+
         public Profile() {
             InitializeComponent();
         }
@@ -19,17 +24,33 @@ namespace BoardGame {
             String username = BoardGame.Properties.Settings.Default.UserName;
             this.txtboxUsername.Text = username;
 
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
-            XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtboxUsername.Text);
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
 
-            if (node != null) {
-                this.txtboxNameSurname.Text = (string)node.Element("Name-Surname");
-                this.txtboxPhoneNumber.Text = (string)node.Element("PhoneNumber");
-                this.txtboxAddress.Text = (string)node.Element("Address");
-                this.txtboxCity.Text = (string)node.Element("City");
-                this.txtboxCountry.Text = (string)node.Element("Country");
-                this.txtboxEmail.Text = (string)node.Element("Email");
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
+
+                while (rdr.Read()) {
+                    txtboxNameSurname.Text = rdr["name_surname"].ToString();
+                    txtboxPhoneNumber.Text = rdr["phone_number"].ToString();
+                    txtboxAddress.Text = rdr["address"].ToString();
+                    txtboxCity.Text = rdr["city"].ToString();
+                    txtboxCountry.Text = rdr["country"].ToString();
+                    txtboxEmail.Text = rdr["email"].ToString();
+                }
+
+                rdr.Close();
+
             }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
@@ -39,26 +60,46 @@ namespace BoardGame {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
-            XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtboxUsername.Text);
+            string hashedPassword = "";
 
-            if ((string) node.Element("Password") != sha256_hash(this.txtboxPassword.Text)){
-                MessageBox.Show("Password is incorrect.");
-                return;
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
+
+                while (rdr.Read()) {
+                    hashedPassword = rdr["password"].ToString();
+                }
+
+                rdr.Close();
+                if (!sha256_hash(this.txtboxPassword.Text).Equals(hashedPassword)) {
+                    MessageBox.Show("Password does not match.");
+                    return;
+                }
+
+                sqlCommand = new SqlCommand("UPDATE Users SET name_surname = @name_surname,phone_number = @phone_number,address = @address,city = @city,country = @country,email = @email WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.Parameters.AddWithValue("@name_surname", txtboxNameSurname.Text);
+                sqlCommand.Parameters.AddWithValue("@phone_number", txtboxPhoneNumber.Text);
+                sqlCommand.Parameters.AddWithValue("@address", txtboxAddress.Text);
+                sqlCommand.Parameters.AddWithValue("@city", txtboxCity.Text);
+                sqlCommand.Parameters.AddWithValue("@country", txtboxCountry.Text);
+                sqlCommand.Parameters.AddWithValue("@email", txtboxEmail.Text);
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+
+                MessageBox.Show("Successfully saved.");
+                this.txtboxPassword.Text = "";
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
 
-            if (node != null) {
-                node.SetElementValue("Username", txtboxUsername.Text);
-                node.SetElementValue("Password", sha256_hash(txtboxPassword.Text));
-                node.SetElementValue("Name-Surname", txtboxNameSurname.Text);
-                node.SetElementValue("PhoneNumber", txtboxPhoneNumber.Text);
-                node.SetElementValue("Address", txtboxAddress.Text);
-                node.SetElementValue("City", txtboxCity.Text);
-                node.SetElementValue("Country", txtboxCountry.Text);
-                node.SetElementValue("Email", txtboxEmail.Text);
-                xDoc.Save(@"../../Veriler.xml");
-            }
-            MessageBox.Show("Saved successfully");
         }
 
 

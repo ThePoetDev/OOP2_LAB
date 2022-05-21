@@ -10,112 +10,165 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Data.SqlClient;
 
 namespace BoardGame
 {
     public partial class ManagerScreen : Form
     {
+
+        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        SqlConnection sqlConnection = new SqlConnection(connectionString);
+
         public ManagerScreen()
         {
             InitializeComponent();
         }
 
         private void btnListAllUsers_Click(object sender, EventArgs e) {
-            loadData();
+            reloadTable();
         }
 
         private void btnBringInfo_Click(object sender, EventArgs e) {
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
-            String str = dataGridViewList.CurrentCell.Value.ToString();
-
-            XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == str);
-
-            if (node != null) {
-                this.txtboxUsername.Text = str;
-                this.txtboxNameSurname.Text = (string)node.Element("Name-Surname");
-                this.txtboxPhonenum.Text = (string)node.Element("PhoneNumber");
-                this.txtboxAddress.Text = (string)node.Element("Address");
-                this.txtboxCity.Text = (string)node.Element("City");
-                this.txtboxCountry.Text = (string)node.Element("Country");
-                this.txtboxEmail.Text = (string)node.Element("Email");
-            } else {
-                MessageBox.Show("Username couldn't find.");
+            if(dataGridViewList.CurrentRow == null) {
+                MessageBox.Show("Please select row then use bring info button.");
+                return;
             }
+            txtboxUsername.Text = dataGridViewList.CurrentRow.Cells[1].Value.ToString();
+            txtboxNameSurname.Text = dataGridViewList.CurrentRow.Cells[3].Value.ToString();
+            txtboxPhonenum.Text = dataGridViewList.CurrentRow.Cells[4].Value.ToString();
+            txtboxAddress.Text = dataGridViewList.CurrentRow.Cells[5].Value.ToString();
+            txtboxCity.Text = dataGridViewList.CurrentRow.Cells[6].Value.ToString();
+            txtboxCountry.Text = dataGridViewList.CurrentRow.Cells[7].Value.ToString();
+            txtboxEmail.Text = dataGridViewList.CurrentRow.Cells[8].Value.ToString();
         }
 
         private void btnAddNewUser_Click(object sender, EventArgs e) {
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
 
-            XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtboxUsername.Text);
+                SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(username) FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
 
-            if(node != null) {
-                MessageBox.Show("There's already such a user.");
-                return;
+                while (rdr.Read()) {
+                    if (rdr.GetInt32(0) >= 1) {
+                        MessageBox.Show("There's already such a user.");
+                        rdr.Close();
+                        return;
+                    }
+                }
+
+                rdr.Close();
+
+                string registery = "INSERT INTO Users (username,password,name_surname,phone_number,address,city,country,email,admin) " +
+                    "values(@username, @password, @name_surname, @phone_number, @address, @city, @country, @email, @admin)";
+
+                sqlCommand = new SqlCommand(registery, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.Parameters.AddWithValue("@password", sha256_hash(txtBoxPassword.Text));
+                sqlCommand.Parameters.AddWithValue("@name_surname", txtboxNameSurname.Text);
+                sqlCommand.Parameters.AddWithValue("@phone_number", txtboxPhonenum.Text);
+                sqlCommand.Parameters.AddWithValue("@address", txtboxAddress.Text);
+                sqlCommand.Parameters.AddWithValue("@city", txtboxCity.Text);
+                sqlCommand.Parameters.AddWithValue("@country", txtboxCountry.Text);
+                sqlCommand.Parameters.AddWithValue("@email", txtboxEmail.Text);
+                sqlCommand.Parameters.AddWithValue("@admin", "0");
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                MessageBox.Show("Signed up successfully");
+
+                reloadTable();
+
             }
-
-            xDoc.Element("Users").Add(
-                new XElement("user",
-                new XElement("type", "user"),
-                new XElement("Username", txtboxUsername.Text),
-                new XElement("Name-Surname", txtboxNameSurname.Text),
-                new XElement("PhoneNumber", txtboxPhonenum.Text),
-                new XElement("Address", txtboxAddress.Text),
-                new XElement("City", txtboxCity.Text),
-                new XElement("Country", txtboxCountry.Text),
-                new XElement("Email", txtboxEmail.Text)
-                ));
-
-            xDoc.Save(@"../../Veriler.xml");
-            loadData();
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnUpdateUser_Click(object sender, EventArgs e) {
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
-            XElement node = xDoc.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtboxUsername.Text);
+            if (txtboxUsername.Text.Equals("user") || txtboxUsername.Text.Equals("admin")) {
+                MessageBox.Show("You cannot edit this account.");
+                return;
+            }
 
-            if(node != null) {
-                node.SetElementValue("Username", txtboxUsername.Text);
-                node.SetElementValue("Name-Surname", txtboxNameSurname.Text);
-                node.SetElementValue("PhoneNumber", txtboxPhonenum.Text);
-                node.SetElementValue("Address", txtboxAddress.Text);
-                node.SetElementValue("City", txtboxCity.Text);
-                node.SetElementValue("Country", txtboxCountry.Text);
-                node.SetElementValue("Email", txtboxEmail.Text);
-                xDoc.Save(@"../../Veriler.xml");
-                loadData();
-            } else {
-                MessageBox.Show("Username couldn't find.");
+
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
+
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(username) FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
+
+                while (rdr.Read()) {
+                    if (rdr.GetInt32(0) == 0) {
+                        MessageBox.Show("There's no such a user.");
+                        rdr.Close();
+                        return;
+                    }
+                }
+
+                rdr.Close();
+
+                sqlCommand = new SqlCommand("UPDATE Users SET name_surname = @name_surname,phone_number = @phone_number,address = @address,city = @city,country = @country,email = @email WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
+                sqlCommand.Parameters.AddWithValue("@name_surname", txtboxNameSurname.Text);
+                sqlCommand.Parameters.AddWithValue("@phone_number", txtboxPhonenum.Text);
+                sqlCommand.Parameters.AddWithValue("@address", txtboxAddress.Text);
+                sqlCommand.Parameters.AddWithValue("@city", txtboxCity.Text);
+                sqlCommand.Parameters.AddWithValue("@country", txtboxCountry.Text);
+                sqlCommand.Parameters.AddWithValue("@email", txtboxEmail.Text);
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                reloadTable();
+
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btnDeleteUser_Click(object sender, EventArgs e) {
-
-            if(txtboxUsername.Text == "admin" || txtboxUsername.Text == "user") {
-                MessageBox.Show("This account cannot be deleted.");
+            if (dataGridViewList.CurrentRow == null) {
+                MessageBox.Show("Please select row then use bring info button.");
                 return;
             }
 
-            XDocument xDoc = XDocument.Load(@"../../Veriler.xml");
-            xDoc.Root.Elements().Where(data => data.Element("Username").Value == txtboxUsername.Text).Remove();
-            xDoc.Save(@"../../Veriler.xml");
-            loadData();
-           
+            if (dataGridViewList.CurrentRow.Cells[1].Value.ToString().Equals("user") || dataGridViewList.CurrentRow.Cells[1].Value.ToString().Equals("admin")) {
+                MessageBox.Show("You cannot delete this account.");
+                return;
+            }
+
+
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("DELETE FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", dataGridViewList.CurrentRow.Cells[1].Value.ToString());
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                reloadTable();
+
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
             LogIn logIn = new LogIn();
             this.Hide();
             logIn.Show();
-        }
-
-
-        void loadData() {
-            DataSet ds = new DataSet();
-            XmlReader xmlReader = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
-            ds.ReadXml(xmlReader);
-            dataGridViewList.DataSource = ds.Tables[0];
-            dataGridViewList.Columns.RemoveAt(2);
-            xmlReader.Close();
         }
 
 
@@ -132,5 +185,26 @@ namespace BoardGame
 
             return Sb.ToString();
         }
+
+        public void reloadTable() {
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Users", sqlConnection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                DataTable dataTable = new DataTable();
+                sqlDataAdapter.Fill(dataTable);
+                this.dataGridViewList.DataSource = dataTable;
+                sqlConnection.Close();
+                this.txtBoxPassword.Text = "";
+
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 }

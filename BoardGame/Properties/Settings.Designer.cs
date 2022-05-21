@@ -154,5 +154,15 @@ namespace BoardGame.Properties {
                 this["BorderY"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True")]
+        public string BoardgameConnectionString {
+            get {
+                return ((string)(this["BoardgameConnectionString"]));
+            }
+        }
     }
 }

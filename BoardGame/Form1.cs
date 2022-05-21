@@ -12,69 +12,63 @@ using System.Xml.Linq;
 using System.IO;
 using System.Security.Cryptography;
 using System.Xml.XPath;
+using System.Data.SqlClient;
+
 
 namespace BoardGame
 {
     public partial class LogIn : Form
     {
+        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        bool found = false;
+        SqlConnection sqlConnection = new SqlConnection(connectionString);
+
         public LogIn()
         {
             InitializeComponent();
         }
-        void load()
-        {
-            XmlDocument x = new XmlDocument();
-            DataSet ds = new DataSet();
-            XmlReader xmlFile;
-            xmlFile = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
-            ds.ReadXml(xmlFile);
-            xmlFile.Close();
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            load();
+
         }
+
         private void btnLogIn_Click(object sender, EventArgs e)
         {
-            XmlDocument x = new XmlDocument();
-            DataSet ds = new DataSet();
-            XmlReader xmlFile;
-            xmlFile = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
-            ds.ReadXml(xmlFile);
-            x.Load(@"../../Veriler.xml");
-            XmlNodeList nameList = x.GetElementsByTagName("Username");
-            XmlNodeList passList = x.GetElementsByTagName("Password");
-            XmlNodeList typeList = x.GetElementsByTagName("type");
-            bool found = false;
-            for (int i = 0; i < nameList.Count; i++)
-            {
-                var hashXML = passList[i].InnerText;
-                string hashText = sha256_hash(txtPassword.Text);
-                if (nameList[i].InnerText == txtUsername.Text && hashText == hashXML)
-                {
-                    if (typeList[i].InnerText == "admin")
-                    {
-                        this.Visible = false;
-                        ManagerScreen manager = new ManagerScreen();
-                        manager.Show();
-                        found = true;
-                        break;
-                    }
-                    else
-                    {
-                        this.Visible = false;
-                        MainGame mainGame = new MainGame();
-                        mainGame.Show();
-                        found = true;
-                        break;
-                    }
+            try {
+                if(sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
                 }
-                else if (nameList[i].InnerText != txtUsername.Text && hashText != hashXML)
-                {
-                    continue;
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtUsername.Text);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
+
+                while (rdr.Read()) {
+                    if (rdr["password"].ToString() == sha256_hash(txtPassword.Text)) {
+                        if (rdr["admin"].ToString() == "0") {
+                            this.Visible = false;
+                            MainGame mainGame = new MainGame();
+                            mainGame.Show();
+                            found = true;
+                        } else if (rdr["admin"].ToString() == "1") {
+                            this.Visible = false;
+                            ManagerScreen manager = new ManagerScreen();
+                            manager.Show();
+                            found = true;
+                        }
+                    }
+
                 }
+
+                rdr.Close();
+
             }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+            
             if (found == true)
             {
                BoardGame.Properties.Settings.Default.UserName = txtUsername.Text;
@@ -93,7 +87,6 @@ namespace BoardGame
         }
         private void LogIn_Load(object sender, EventArgs e)
         {
-            load();
             this.AcceptButton = btnLogin;
             if (Properties.Settings.Default.UserName != string.Empty)
             {
