@@ -14,7 +14,7 @@ using System.Data.SqlClient;
 namespace BoardGame {
     public partial class Profile : Form {
 
-        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        static string connectionString = BoardGame.Properties.Settings.Default.BoardgameConnectionString;
         SqlConnection sqlConnection = new SqlConnection(connectionString);
 
         public Profile() {

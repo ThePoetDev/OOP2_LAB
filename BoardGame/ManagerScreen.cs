@@ -17,7 +17,7 @@ namespace BoardGame
     public partial class ManagerScreen : Form
     {
 
-        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        static string connectionString = BoardGame.Properties.Settings.Default.BoardgameConnectionString;
         SqlConnection sqlConnection = new SqlConnection(connectionString);
 
         public ManagerScreen()
