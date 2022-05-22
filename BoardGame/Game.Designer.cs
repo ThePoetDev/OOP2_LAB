@@ -29,21 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.GameBoard = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.txtScore = new System.Windows.Forms.TextBox();
+            this.lblScore = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GameBoard)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BoardGame.Properties.Resources.GreenTriangle;
-            this.pictureBox1.Location = new System.Drawing.Point(873, 254);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // GameBoard
             // 
@@ -56,8 +47,22 @@
             this.GameBoard.TabIndex = 0;
             this.GameBoard.TabStop = false;
             // 
-            // timer1
+            // txtScore
             // 
+            this.txtScore.Location = new System.Drawing.Point(907, 114);
+            this.txtScore.Name = "txtScore";
+            this.txtScore.Size = new System.Drawing.Size(100, 22);
+            this.txtScore.TabIndex = 2;
+            this.txtScore.Text = "0";
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Location = new System.Drawing.Point(852, 114);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(49, 17);
+            this.lblScore.TabIndex = 3;
+            this.lblScore.Text = "Score:";
             // 
             // Game
             // 
@@ -65,22 +70,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(1047, 828);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblScore);
+            this.Controls.Add(this.txtScore);
             this.Controls.Add(this.GameBoard);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Game";
             this.Text = "Game";
             this.Load += new System.EventHandler(this.Game_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GameBoard)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox GameBoard;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox txtScore;
+        private System.Windows.Forms.Label lblScore;
     }
 }
