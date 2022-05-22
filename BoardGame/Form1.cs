@@ -19,7 +19,7 @@ namespace BoardGame
 {
     public partial class LogIn : Form
     {
-        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        static string connectionString = BoardGame.Properties.Settings.Default.BoardgameConnectionString;
         bool found = false;
         SqlConnection sqlConnection = new SqlConnection(connectionString);
 
