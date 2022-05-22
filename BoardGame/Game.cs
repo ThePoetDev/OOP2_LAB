@@ -56,11 +56,11 @@ namespace BoardGame
             int shapeColorList = 0;
             int btnSize = GameBoard.Width / board.Row;
             GameBoard.Width = GameBoard.Height;
-            int colors = 1;
-            if (triangleShape) colors++;
-            if (circleShape) colors++;
-            if (squareShape) colors++;
-            int colorSize = random.Next(1, colors);
+            int shapes = 1;
+            if (triangleShape) shapes++;
+            if (circleShape) shapes++;
+            if (squareShape) shapes++;
+            int shapeSize = random.Next(1, shapes);
             for (int i = 0; i < board.Row; i++)
             {
                 for (int j = 0; j < board.Col; j++)
@@ -70,12 +70,194 @@ namespace BoardGame
                     btnGrid[i, j].Width = btnSize;
                     if (shapeColorList <= 2)
                     {
-                        if (triangleShape && colorSize == 1)
-                        {
-                            if (redColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
+                        if(triangleShape && circleShape && squareShape) {
+                            if (shapeSize == 1) {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedTriangle;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
+                                    }
+                                }
+
+                            }
+
+                            if (shapeSize == 2) {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedCircle;
+                                        btnGrid[i, j].Tag = i + "," + j + "," + "r,c";
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenCircle;
+                                        btnGrid[i, j].Tag = i + "," + j + "," + "g,c";
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueCircle;
+                                        btnGrid[i, j].Tag = i + "," + j + "," + "b,c";
+                                    }
+                                }
+                            }
+
+                            if (shapeSize == 3) {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedSquare;
+                                        btnGrid[i, j].Tag = i + "," + j + "," + "r,s";
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenSquare;
+                                        btnGrid[i, j].Tag = i + "," + j + "," + "g,s";
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueSquare;
+                                        btnGrid[i, j].Tag = i + "," + j + "," + "b,s";
+                                    }
+                                }
+                            }
+                        } 
+                        else if (triangleShape && circleShape && !squareShape) {
+                            if (random.Next(1, 3) == 1) {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedTriangle;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
+                                    }
+                                }
+                            }else {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedCircle;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenCircle;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueCircle;
+                                    }
+                                }
+                            }
+                        } 
+                        else if (triangleShape && !circleShape && squareShape) {
+                            if (random.Next(1, 3) == 1) {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedTriangle;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
+                                    }
+                                }
+                            }else {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedSquare;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenSquare;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueSquare;
+                                    }
+                                }
+                            }
+                        }
+                        else if (!triangleShape && circleShape && squareShape) {
+                            if (random.Next(1, 3) == 1) {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedCircle;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenCircle;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueCircle;
+                                    }
+                                }
+                            } else {
+                                if (redColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.RedSquare;
+                                    }
+                                }
+
+                                if (greenColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.GreenSquare;
+                                    }
+                                }
+
+                                if (blueColor) {
+                                    if (random.Next(0, 5) < 3) {
+                                        btnGrid[i, j].Image = Properties.Resources.BlueSquare;
+                                    }
+                                }
+                            }
+                        }
+                        else if (triangleShape && !circleShape && !squareShape) {
+                            if (redColor) {
+                                if (random.Next(0, 5) < 3) {
                                     btnGrid[i, j].Image = Properties.Resources.RedTriangle;
                                     btnGrid[i, j].Image.Tag = "RedTriangle";
                                 }
@@ -98,15 +280,10 @@ namespace BoardGame
                                     btnGrid[i, j].Image.Tag = "BlueTriangle";
                                 }
                             }
-
-                        }
-
-                        if (circleShape && colorSize == 2)
-                        {
-                            if (redColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
+                        } 
+                        else if (!triangleShape && circleShape && !squareShape) {
+                            if (redColor) {
+                                if (random.Next(0, 5) < 3) {
                                     btnGrid[i, j].Image = Properties.Resources.RedCircle;
                                     btnGrid[i, j].Image.Tag = "RedCircle";
                                 }
@@ -129,14 +306,11 @@ namespace BoardGame
                                     btnGrid[i, j].Image.Tag = "BlueCircle";
                                 }
                             }
-                        }
 
-                        if (squareShape && colorSize == 3)
-                        {
-                            if (redColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
+                        } 
+                        else if (!triangleShape && !circleShape && squareShape) {
+                            if (redColor) {
+                                if (random.Next(0, 5) < 3) {
                                     btnGrid[i, j].Image = Properties.Resources.RedSquare;
                                     btnGrid[i, j].Image.Tag = "RedSquare";
                                 }
@@ -160,6 +334,7 @@ namespace BoardGame
                                 }
                             }
                         }
+ 
                         shapeColorList++;
                     }
                     btnGrid[i, j].Click += Grid_Button_Click;
@@ -181,6 +356,9 @@ namespace BoardGame
         {
             Button clickedButton = (Button)sender;
             Point location = (Point)clickedButton.Tag;
+            var squareShape = BoardGame.Properties.Settings.Default.ShapeSquare;
+            var triangleShape = BoardGame.Properties.Settings.Default.ShapeTriangle;
+            var circleShape = BoardGame.Properties.Settings.Default.ShapeCircle;
             clickCounter++;
 
             if (clickCounter % 2 == 1) { x = location.X; y = location.Y; currentCell = board.theGrid[x, y]; /*timer1.Start(); */}
@@ -286,6 +464,39 @@ namespace BoardGame
                                     btnGrid[row, col].Image.Tag = "BlueCircle";
                                     total++;
                                 }
+                            }
+                        } else if (triangleShape && !circleShape && !squareShape) {
+                            if (chance == 1) {
+                                btnGrid[row, col].Image = Resources.RedTriangle;
+                                total++;
+                            } else if (chance == 2) {
+                                btnGrid[row, col].Image = Resources.GreenTriangle;
+                                total++;
+                            } else if (chance == 3) {
+                                btnGrid[row, col].Image = Resources.BlueTriangle;
+                                total++;
+                            }
+                        } else if (!triangleShape && circleShape && !squareShape) {
+                            if (chance == 1) {
+                                btnGrid[row, col].Image = Resources.RedCircle;
+                                total++;
+                            } else if (chance == 2) {
+                                btnGrid[row, col].Image = Resources.GreenCircle;
+                                total++;
+                            } else if (chance == 3) {
+                                btnGrid[row, col].Image = Resources.BlueCircle;
+                                total++;
+                            }
+                        } else if (!triangleShape && !circleShape && squareShape) {
+                            if (chance == 1) {
+                                btnGrid[row, col].Image = Resources.RedSquare;
+                                total++;
+                            } else if (chance == 2) {
+                                btnGrid[row, col].Image = Resources.GreenSquare;
+                                total++;
+                            } else if (chance == 3) {
+                                btnGrid[row, col].Image = Resources.BlueSquare;
+                                total++;
                             }
                         }
                     }

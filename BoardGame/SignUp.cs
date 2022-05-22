@@ -11,23 +11,18 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Security.Cryptography;
 using System.Xml.XPath;
+using System.Data.SqlClient;
 
 namespace BoardGame
 {
     public partial class SignUp : Form
     {
+        static string connectionString = "Data Source=DESKTOP-SDBPIFH;Initial Catalog=Boardgame;Integrated Security=True";
+        SqlConnection sqlConnection = new SqlConnection(connectionString);
+
         public SignUp()
         {
             InitializeComponent();
-        }
-        void load()
-        {
-            XmlDocument x = new XmlDocument();
-            DataSet ds = new DataSet();
-            XmlReader xmlFile;
-            xmlFile = XmlReader.Create(@"../../Veriler.xml", new XmlReaderSettings());
-            ds.ReadXml(xmlFile);
-            xmlFile.Close();
         }
 
         private void btnSign_Click(object sender, EventArgs e)
@@ -37,33 +32,48 @@ namespace BoardGame
                 return;
             }
 
-            XDocument xml = XDocument.Load(@"../../Veriler.xml");
-            XElement node = xml.Element("Users").Elements("user").FirstOrDefault(data => data.Element("Username").Value == txtUsername.Text);
+            try {
+                if(sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
 
-            if (node != null) {
-                MessageBox.Show("There's already such a user.");
-                return;
+                SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(username) FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtUsername.Text);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
+
+                while (rdr.Read()) {
+                    if(rdr.GetInt32(0) >= 1) {
+                        MessageBox.Show("There's already such a user.");
+                        rdr.Close();
+                        return;
+                    }
+                }
+
+                rdr.Close();
+
+                string registery = "INSERT INTO Users (username,password,name_surname,phone_number,address,city,country,email,admin) " +
+                    "values(@username, @password, @name_surname, @phone_number, @address, @city, @country, @email, @admin)";
+
+                sqlCommand = new SqlCommand(registery, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", txtUsername.Text);
+                sqlCommand.Parameters.AddWithValue("@password", sha256_hash(this.txtPassword.Text));
+                sqlCommand.Parameters.AddWithValue("@name_surname", txtNameSurname.Text);
+                sqlCommand.Parameters.AddWithValue("@phone_number", txtPnumber.Text);
+                sqlCommand.Parameters.AddWithValue("@address", txtAddress.Text);
+                sqlCommand.Parameters.AddWithValue("@city", txtCity.Text);
+                sqlCommand.Parameters.AddWithValue("@country", txtCountry.Text);
+                sqlCommand.Parameters.AddWithValue("@email", txtMail.Text);
+                sqlCommand.Parameters.AddWithValue("@admin", "0");
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                MessageBox.Show("Signed up successfully");
+
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message);
             }
 
-            xml.Element("Users").Add(
-                new XElement("user",
-                new XElement("type","user"),
-                new XElement("Username", txtUsername.Text),
-                new XElement("Password", sha256_hash(this.txtPassword.Text)),
-                new XElement("Name-Surname", txtNameSurname.Text),
-                new XElement("PhoneNumber", txtPnumber.Text),
-                new XElement("Address", txtAddress.Text),
-                new XElement("City", txtCity.Text),
-                new XElement("Country", txtCountry.Text),
-                new XElement("Email", txtMail.Text)
-                ));
-            //foreach (XElement element in x.XPathSelectElement("//user").Descendants())
-            //{
-            //    string value = element.Value;
-            //}
-            xml.Save(@"../../Veriler.xml");
-            load();
-            MessageBox.Show("Signed up successfully");
             this.Visible = false;
             LogIn login = new LogIn();
             login.Show();
@@ -71,7 +81,6 @@ namespace BoardGame
 
         private void SignUp_Load(object sender, EventArgs e)
         {
-            load();
             this.AcceptButton = btnSign;
         }
 

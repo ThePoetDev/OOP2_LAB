@@ -48,6 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
+    <Compile Include="BoardgameDataSet.cs">
+      <DependentUpon>BoardgameDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="BoardgameDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoardgameDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Cell.cs" />
     <Compile Include="Credits.cs">
       <SubType>Form</SubType>
@@ -142,6 +150,17 @@
     <EmbeddedResource Include="SignUp.resx">
       <DependentUpon>SignUp.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="BoardgameDataSet.xsc">
+      <DependentUpon>BoardgameDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BoardgameDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BoardgameDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BoardgameDataSet.xss">
+      <DependentUpon>BoardgameDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
