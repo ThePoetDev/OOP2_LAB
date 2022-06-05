@@ -82,7 +82,7 @@ namespace BoardGame
             this.btnLogin.Location = new System.Drawing.Point(195, 250);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(136, 42);
-            this.btnLogin.TabIndex = 7;
+            this.btnLogin.TabIndex = 6;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogIn_Click);
@@ -95,7 +95,7 @@ namespace BoardGame
             this.btnSignUp.Location = new System.Drawing.Point(392, 250);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(136, 42);
-            this.btnSignUp.TabIndex = 8;
+            this.btnSignUp.TabIndex = 7;
             this.btnSignUp.Text = "Sign Up";
             this.btnSignUp.UseVisualStyleBackColor = false;
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);
@@ -106,7 +106,7 @@ namespace BoardGame
             this.chckPassShown.Location = new System.Drawing.Point(182, 180);
             this.chckPassShown.Name = "chckPassShown";
             this.chckPassShown.Size = new System.Drawing.Size(152, 21);
-            this.chckPassShown.TabIndex = 9;
+            this.chckPassShown.TabIndex = 5;
             this.chckPassShown.Text = "Show the password";
             this.chckPassShown.UseVisualStyleBackColor = true;
             this.chckPassShown.CheckedChanged += new System.EventHandler(this.chckPassShown_CheckedChanged);
