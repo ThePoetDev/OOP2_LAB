@@ -52,8 +52,8 @@ namespace BoardGame
 
                 rdr.Close();
 
-                string registery = "INSERT INTO Users (username,password,name_surname,phone_number,address,city,country,email,admin) " +
-                    "values(@username, @password, @name_surname, @phone_number, @address, @city, @country, @email, @admin)";
+                string registery = "INSERT INTO Users (username,password,name_surname,phone_number,address,city,country,email,best_score,admin) " +
+                    "values(@username, @password, @name_surname, @phone_number, @address, @city, @country, @email, @bestscore, @admin)";
 
                 sqlCommand = new SqlCommand(registery, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@username", txtUsername.Text);
@@ -64,6 +64,7 @@ namespace BoardGame
                 sqlCommand.Parameters.AddWithValue("@city", txtCity.Text);
                 sqlCommand.Parameters.AddWithValue("@country", txtCountry.Text);
                 sqlCommand.Parameters.AddWithValue("@email", txtMail.Text);
+                sqlCommand.Parameters.AddWithValue("@bestscore", "0");
                 sqlCommand.Parameters.AddWithValue("@admin", "0");
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();

@@ -52,6 +52,9 @@ namespace BoardGame
             this.btnBack = new System.Windows.Forms.Button();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtBoxPassword = new System.Windows.Forms.TextBox();
+            this.lblBestScore = new System.Windows.Forms.Label();
+            this.txtBoxBestScore = new System.Windows.Forms.TextBox();
+            this.btnSort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +68,7 @@ namespace BoardGame
             this.dataGridViewList.Name = "dataGridViewList";
             this.dataGridViewList.ReadOnly = true;
             this.dataGridViewList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewList.Size = new System.Drawing.Size(823, 247);
+            this.dataGridViewList.Size = new System.Drawing.Size(844, 247);
             this.dataGridViewList.TabIndex = 0;
             // 
             // lblUsername
@@ -136,54 +139,54 @@ namespace BoardGame
             this.txtboxUsername.Location = new System.Drawing.Point(309, 285);
             this.txtboxUsername.Name = "txtboxUsername";
             this.txtboxUsername.Size = new System.Drawing.Size(162, 20);
-            this.txtboxUsername.TabIndex = 3;
+            this.txtboxUsername.TabIndex = 1;
             // 
             // txtboxNameSurname
             // 
             this.txtboxNameSurname.Location = new System.Drawing.Point(309, 354);
             this.txtboxNameSurname.Name = "txtboxNameSurname";
             this.txtboxNameSurname.Size = new System.Drawing.Size(162, 20);
-            this.txtboxNameSurname.TabIndex = 5;
+            this.txtboxNameSurname.TabIndex = 3;
             // 
             // txtboxPhonenum
             // 
             this.txtboxPhonenum.Location = new System.Drawing.Point(309, 390);
             this.txtboxPhonenum.Name = "txtboxPhonenum";
             this.txtboxPhonenum.Size = new System.Drawing.Size(162, 20);
-            this.txtboxPhonenum.TabIndex = 6;
+            this.txtboxPhonenum.TabIndex = 4;
             // 
             // txtboxAddress
             // 
             this.txtboxAddress.Location = new System.Drawing.Point(309, 426);
             this.txtboxAddress.Name = "txtboxAddress";
             this.txtboxAddress.Size = new System.Drawing.Size(162, 20);
-            this.txtboxAddress.TabIndex = 7;
+            this.txtboxAddress.TabIndex = 5;
             // 
             // txtboxCity
             // 
             this.txtboxCity.Location = new System.Drawing.Point(309, 462);
             this.txtboxCity.Name = "txtboxCity";
             this.txtboxCity.Size = new System.Drawing.Size(162, 20);
-            this.txtboxCity.TabIndex = 8;
+            this.txtboxCity.TabIndex = 6;
             // 
             // txtboxCountry
             // 
             this.txtboxCountry.Location = new System.Drawing.Point(309, 496);
             this.txtboxCountry.Name = "txtboxCountry";
             this.txtboxCountry.Size = new System.Drawing.Size(162, 20);
-            this.txtboxCountry.TabIndex = 9;
+            this.txtboxCountry.TabIndex = 7;
             // 
             // txtboxEmail
             // 
             this.txtboxEmail.Location = new System.Drawing.Point(309, 531);
             this.txtboxEmail.Name = "txtboxEmail";
             this.txtboxEmail.Size = new System.Drawing.Size(162, 20);
-            this.txtboxEmail.TabIndex = 10;
+            this.txtboxEmail.TabIndex = 8;
             // 
             // btnBringInfo
             // 
             this.btnBringInfo.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnBringInfo.Location = new System.Drawing.Point(684, 340);
+            this.btnBringInfo.Location = new System.Drawing.Point(740, 392);
             this.btnBringInfo.Name = "btnBringInfo";
             this.btnBringInfo.Size = new System.Drawing.Size(104, 34);
             this.btnBringInfo.TabIndex = 12;
@@ -194,10 +197,10 @@ namespace BoardGame
             // btnListAllUsers
             // 
             this.btnListAllUsers.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnListAllUsers.Location = new System.Drawing.Point(684, 285);
+            this.btnListAllUsers.Location = new System.Drawing.Point(740, 312);
             this.btnListAllUsers.Name = "btnListAllUsers";
             this.btnListAllUsers.Size = new System.Drawing.Size(104, 34);
-            this.btnListAllUsers.TabIndex = 11;
+            this.btnListAllUsers.TabIndex = 10;
             this.btnListAllUsers.Text = "List All Users";
             this.btnListAllUsers.UseVisualStyleBackColor = false;
             this.btnListAllUsers.Click += new System.EventHandler(this.btnListAllUsers_Click);
@@ -205,7 +208,7 @@ namespace BoardGame
             // btnAddNewUser
             // 
             this.btnAddNewUser.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnAddNewUser.Location = new System.Drawing.Point(684, 397);
+            this.btnAddNewUser.Location = new System.Drawing.Point(740, 432);
             this.btnAddNewUser.Name = "btnAddNewUser";
             this.btnAddNewUser.Size = new System.Drawing.Size(104, 34);
             this.btnAddNewUser.TabIndex = 13;
@@ -216,7 +219,7 @@ namespace BoardGame
             // btnUpdateUser
             // 
             this.btnUpdateUser.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnUpdateUser.Location = new System.Drawing.Point(684, 458);
+            this.btnUpdateUser.Location = new System.Drawing.Point(740, 472);
             this.btnUpdateUser.Name = "btnUpdateUser";
             this.btnUpdateUser.Size = new System.Drawing.Size(104, 34);
             this.btnUpdateUser.TabIndex = 14;
@@ -227,7 +230,7 @@ namespace BoardGame
             // btnDeleteUser
             // 
             this.btnDeleteUser.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnDeleteUser.Location = new System.Drawing.Point(684, 517);
+            this.btnDeleteUser.Location = new System.Drawing.Point(740, 512);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(104, 34);
             this.btnDeleteUser.TabIndex = 15;
@@ -238,7 +241,7 @@ namespace BoardGame
             // btnBack
             // 
             this.btnBack.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnBack.Location = new System.Drawing.Point(397, 595);
+            this.btnBack.Location = new System.Drawing.Point(399, 618);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(150, 42);
             this.btnBack.TabIndex = 16;
@@ -260,14 +263,44 @@ namespace BoardGame
             this.txtBoxPassword.Location = new System.Drawing.Point(309, 320);
             this.txtBoxPassword.Name = "txtBoxPassword";
             this.txtBoxPassword.Size = new System.Drawing.Size(162, 20);
-            this.txtBoxPassword.TabIndex = 5;
+            this.txtBoxPassword.TabIndex = 2;
+            // 
+            // lblBestScore
+            // 
+            this.lblBestScore.AutoSize = true;
+            this.lblBestScore.Location = new System.Drawing.Point(117, 568);
+            this.lblBestScore.Name = "lblBestScore";
+            this.lblBestScore.Size = new System.Drawing.Size(59, 13);
+            this.lblBestScore.TabIndex = 17;
+            this.lblBestScore.Text = "Best Score";
+            // 
+            // txtBoxBestScore
+            // 
+            this.txtBoxBestScore.Location = new System.Drawing.Point(309, 568);
+            this.txtBoxBestScore.Name = "txtBoxBestScore";
+            this.txtBoxBestScore.Size = new System.Drawing.Size(162, 20);
+            this.txtBoxBestScore.TabIndex = 9;
+            // 
+            // btnSort
+            // 
+            this.btnSort.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnSort.Location = new System.Drawing.Point(740, 352);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.Size = new System.Drawing.Size(104, 34);
+            this.btnSort.TabIndex = 11;
+            this.btnSort.Text = "Sort By Score";
+            this.btnSort.UseVisualStyleBackColor = false;
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
             // 
             // ManagerScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(972, 650);
+            this.ClientSize = new System.Drawing.Size(1019, 681);
+            this.Controls.Add(this.btnSort);
+            this.Controls.Add(this.txtBoxBestScore);
+            this.Controls.Add(this.lblBestScore);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnListAllUsers);
             this.Controls.Add(this.btnDeleteUser);
@@ -324,5 +357,8 @@ namespace BoardGame
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox txtBoxPassword;
+        private System.Windows.Forms.Label lblBestScore;
+        private System.Windows.Forms.TextBox txtBoxBestScore;
+        private System.Windows.Forms.Button btnSort;
     }
 }

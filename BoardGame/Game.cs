@@ -9,22 +9,42 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
-namespace BoardGame
-{
-    public partial class Game : Form
-    {
+namespace BoardGame {
+    public partial class Game : Form {
         static Board board = new Board(30, 30);
         public Button[,] btnGrid = new Button[board.Row, board.Col];
         Random random = new Random();
+        static string connectionString = BoardGame.Properties.Settings.Default.BoardgameConnectionString;
+        static int total = 0;
 
-        public Game()
-        {
+        public Game() {
             InitializeComponent();
             populateGrid();
         }
-        private void populateGrid()
-        {
+        private void populateGrid() {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try {
+                if (sqlConnection.State == ConnectionState.Closed) {
+                    sqlConnection.Open();
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Users WHERE username = @username", sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@username", BoardGame.Properties.Settings.Default.UserName);
+                sqlCommand.CommandType = CommandType.Text;
+                SqlDataReader rdr = sqlCommand.ExecuteReader();
+
+                while (rdr.Read()) {
+                    this.txtBoxBestScore.Text = rdr["best_score"].ToString();
+                }
+
+                rdr.Close();
+
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
             var redColor = BoardGame.Properties.Settings.Default.ColorRed;
             var greenColor = BoardGame.Properties.Settings.Default.ColorGreen;
             var blueColor = BoardGame.Properties.Settings.Default.ColorBlue;
@@ -32,28 +52,20 @@ namespace BoardGame
             var triangleShape = BoardGame.Properties.Settings.Default.ShapeTriangle;
             var circleShape = BoardGame.Properties.Settings.Default.ShapeCircle;
             var difLevel = BoardGame.Properties.Settings.Default.DifLevel;
-            if (difLevel.Equals("Easy"))
-            {
+            if (difLevel.Equals("Easy")) {
                 int size = 15;
                 board = new Board(size, size);
-            }
-            else if (difLevel.Equals("Medium"))
-            {
+            } else if (difLevel.Equals("Medium")) {
                 int size = 9;
                 board = new Board(size, size);
-            }
-            else if (difLevel.Equals("Hard"))
-            {
+            } else if (difLevel.Equals("Hard")) {
                 int size = 6;
                 board = new Board(size, size);
-            }
-            else if (difLevel.Equals("Custom"))
-            {
+            } else if (difLevel.Equals("Custom")) {
                 var row = BoardGame.Properties.Settings.Default.BorderX;
                 var col = BoardGame.Properties.Settings.Default.BorderY;
                 board = new Board(Int32.Parse(row), Int32.Parse(col));
             }
-            int shapeColorList = 0;
             int btnSize = GameBoard.Width / board.Row;
             GameBoard.Width = GameBoard.Height;
             int shapes = 1;
@@ -61,288 +73,20 @@ namespace BoardGame
             if (circleShape) shapes++;
             if (squareShape) shapes++;
             int shapeSize = random.Next(1, shapes);
-            for (int i = 0; i < board.Row; i++)
-            {
-                for (int j = 0; j < board.Col; j++)
-                {
+            for (int i = 0; i < board.Row; i++) {
+                for (int j = 0; j < board.Col; j++) {
                     btnGrid[i, j] = new Button();
                     btnGrid[i, j].Height = btnSize;
                     btnGrid[i, j].Width = btnSize;
-                    if (shapeColorList <= 2)
-                    {
-                        if(triangleShape && circleShape && squareShape) {
-                            if (shapeSize == 1) {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedTriangle;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
-                                    }
-                                }
-
-                            }
-
-                            if (shapeSize == 2) {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedCircle;
-                                        btnGrid[i, j].Tag = i + "," + j + "," + "r,c";
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenCircle;
-                                        btnGrid[i, j].Tag = i + "," + j + "," + "g,c";
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueCircle;
-                                        btnGrid[i, j].Tag = i + "," + j + "," + "b,c";
-                                    }
-                                }
-                            }
-
-                            if (shapeSize == 3) {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedSquare;
-                                        btnGrid[i, j].Tag = i + "," + j + "," + "r,s";
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenSquare;
-                                        btnGrid[i, j].Tag = i + "," + j + "," + "g,s";
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueSquare;
-                                        btnGrid[i, j].Tag = i + "," + j + "," + "b,s";
-                                    }
-                                }
-                            }
-                        } 
-                        else if (triangleShape && circleShape && !squareShape) {
-                            if (random.Next(1, 3) == 1) {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedTriangle;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
-                                    }
-                                }
-                            }else {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedCircle;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenCircle;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueCircle;
-                                    }
-                                }
-                            }
-                        } 
-                        else if (triangleShape && !circleShape && squareShape) {
-                            if (random.Next(1, 3) == 1) {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedTriangle;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
-                                    }
-                                }
-                            }else {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedSquare;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenSquare;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueSquare;
-                                    }
-                                }
-                            }
-                        }
-                        else if (!triangleShape && circleShape && squareShape) {
-                            if (random.Next(1, 3) == 1) {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedCircle;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenCircle;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueCircle;
-                                    }
-                                }
-                            } else {
-                                if (redColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.RedSquare;
-                                    }
-                                }
-
-                                if (greenColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.GreenSquare;
-                                    }
-                                }
-
-                                if (blueColor) {
-                                    if (random.Next(0, 5) < 3) {
-                                        btnGrid[i, j].Image = Properties.Resources.BlueSquare;
-                                    }
-                                }
-                            }
-                        }
-                        else if (triangleShape && !circleShape && !squareShape) {
-                            if (redColor) {
-                                if (random.Next(0, 5) < 3) {
-                                    btnGrid[i, j].Image = Properties.Resources.RedTriangle;
-                                    btnGrid[i, j].Image.Tag = "RedTriangle";
-                                }
-                            }
-
-                            if (greenColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
-                                    btnGrid[i, j].Image = Properties.Resources.GreenTriangle;
-                                    btnGrid[i, j].Image.Tag = "GreenTriangle";
-                                }
-                            }
-
-                            if (blueColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
-                                    btnGrid[i, j].Image = Properties.Resources.BlueTriangle;
-                                    btnGrid[i, j].Image.Tag = "BlueTriangle";
-                                }
-                            }
-                        } 
-                        else if (!triangleShape && circleShape && !squareShape) {
-                            if (redColor) {
-                                if (random.Next(0, 5) < 3) {
-                                    btnGrid[i, j].Image = Properties.Resources.RedCircle;
-                                    btnGrid[i, j].Image.Tag = "RedCircle";
-                                }
-                            }
-
-                            if (greenColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
-                                    btnGrid[i, j].Image = Properties.Resources.GreenCircle;
-                                    btnGrid[i, j].Image.Tag = "GreenCircle";
-                                }
-                            }
-
-                            if (blueColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
-                                    btnGrid[i, j].Image = Properties.Resources.BlueCircle;
-                                    btnGrid[i, j].Image.Tag = "BlueCircle";
-                                }
-                            }
-
-                        } 
-                        else if (!triangleShape && !circleShape && squareShape) {
-                            if (redColor) {
-                                if (random.Next(0, 5) < 3) {
-                                    btnGrid[i, j].Image = Properties.Resources.RedSquare;
-                                    btnGrid[i, j].Image.Tag = "RedSquare";
-                                }
-                            }
-
-                            if (greenColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
-                                    btnGrid[i, j].Image = Properties.Resources.GreenSquare;
-                                    btnGrid[i, j].Image.Tag = "GreenSquare";
-                                }
-                            }
-
-                            if (blueColor)
-                            {
-                                if (random.Next(0, 5) < 3)
-                                {
-                                    btnGrid[i, j].Image = Properties.Resources.BlueSquare;
-                                    btnGrid[i, j].Image.Tag = "BlueSquare";
-                                }
-                            }
-                        }
- 
-                        shapeColorList++;
-                    }
                     btnGrid[i, j].Click += Grid_Button_Click;
                     GameBoard.Controls.Add(btnGrid[i, j]);
                     btnGrid[i, j].Location = new Point(i * btnSize, j * btnSize);
                     btnGrid[i, j].Tag = new Point(i, j);
                 }
             }
+
+            for (int i = 0; i < 3; i++)
+                filler();
         }
         static int x = 0;
         static int y = 0;
@@ -350,154 +94,55 @@ namespace BoardGame
         static int y1 = 0;
         static Cell currentCell;
         int clickCounter = 0;
-        static int total = 3;
 
-        private void Grid_Button_Click(object sender, EventArgs e)
-        {
+        private void Grid_Button_Click(object sender, EventArgs e) {
             Button clickedButton = (Button)sender;
             Point location = (Point)clickedButton.Tag;
-            var squareShape = BoardGame.Properties.Settings.Default.ShapeSquare;
-            var triangleShape = BoardGame.Properties.Settings.Default.ShapeTriangle;
-            var circleShape = BoardGame.Properties.Settings.Default.ShapeCircle;
             clickCounter++;
 
-            if (clickCounter % 2 == 1) { x = location.X; y = location.Y; currentCell = board.theGrid[x, y]; /*timer1.Start(); */}
-            if (clickCounter % 2 == 0)
-            {
-                if (btnGrid[currentCell.RowNumber, currentCell.ColNumber].Image == null)
-                {
+            if (clickCounter % 2 == 1) {
+                x = location.X; y = location.Y; currentCell = board.theGrid[x, y]; /*timer1.Start(); */
+                btnGrid[x, y].BackColor = Color.Black;
+            }
+            if (clickCounter % 2 == 0) {
+                if (btnGrid[currentCell.RowNumber, currentCell.ColNumber].Image == null) {
+                    btnGrid[x, y].BackColor = Color.SkyBlue;
                     return;
                 }
                 x1 = location.X; y1 = location.Y; currentCell = board.theGrid[x1, y1]; /*timer1.Stop()*/;
-                if (btnGrid[x1, y1].Image == null)
-                {
+                btnGrid[x, y].BackColor = Color.SkyBlue;
+                if (btnGrid[x1, y1].Image == null) {
                     btnGrid[x1, y1].Image = btnGrid[x, y].Image;
                     btnGrid[x, y].Image = null;
-                    isWin();
-                }
-                else
-                {
+                } else {
                     return;
                 }
-                int number = random.Next(1, 4);
-                int chance = random.Next(1, 4);
-                if (total != board.Row * board.Col)
-                {
-                    for (int i = 0; i < 3; i++)
-                    {
-                        int row = 0;
-                        int col = 0;
-                        do
-                        {
-                            row = random.Next(0, board.Row);
-                            col = random.Next(0, board.Col);
-                        }
-                        while (row == x1 && col == y1);
 
-                        if (Properties.Settings.Default.ShapeTriangle && number == 1)
-                        {
-                            if (btnGrid[row, col].Image == null)
-                            {
-                                if (chance == 1)
-                                {
-                                    btnGrid[row, col].Image = Resources.RedTriangle;
-                                    btnGrid[row, col].Image.Tag = "RedTriangle";
-                                    total++;
+                if (total != board.Row * board.Col) {
+                    for (int i = 0; i < 3; i++) {
+                        filler();
+                        if (total == board.Row * board.Col) {
+
+                            SqlConnection sqlConnection = new SqlConnection(connectionString);
+                            try {
+                                if (sqlConnection.State == ConnectionState.Closed) {
+                                    sqlConnection.Open();
                                 }
-                                else if (chance == 2)
-                                {
-                                    btnGrid[row, col].Image = Resources.GreenTriangle;
-                                    btnGrid[row, col].Image.Tag = "GreenTriangle";
-                                    total++;
-                                }
-                                else if (chance == 3)
-                                {
-                                    btnGrid[row, col].Image = Resources.BlueTriangle;
-                                    btnGrid[row, col].Image.Tag = "BlueTriangle";
-                                    total++;
-                                }
+
+                                SqlCommand sqlCommand = new SqlCommand("UPDATE Users SET best_score = @bestscore WHERE username = @username", sqlConnection);
+                                sqlCommand.Parameters.AddWithValue("@username", BoardGame.Properties.Settings.Default.UserName);
+                                sqlCommand.Parameters.AddWithValue("@bestscore", txtBoxBestScore.Text);
+                                sqlCommand.ExecuteNonQuery();
+                                sqlConnection.Close();
+
                             }
-                        }
-                        if (Properties.Settings.Default.ShapeSquare && number == 2)
-                        {
-                            if (btnGrid[row, col].Image == null)
-                            {
-                                if (chance == 1)
-                                {
-                                    btnGrid[row, col].Image = Resources.RedSquare;
-                                    btnGrid[row, col].Image.Tag = "RedSquare";
-                                    total++;
-                                }
-                                else if (chance == 2)
-                                {
-                                    btnGrid[row, col].Image = Resources.GreenSquare;
-                                    btnGrid[row, col].Image.Tag = "GreenSquare";
-                                    total++;
-                                }
-                                else if (chance == 3)
-                                {
-                                    btnGrid[row, col].Image = Resources.BlueSquare;
-                                    btnGrid[row, col].Image.Tag = "BlueSquare";
-                                    total++;
-                                }
+                            catch (Exception ex) {
+                                MessageBox.Show(ex.Message);
                             }
-                        }
-                        if (Properties.Settings.Default.ShapeCircle && number == 3)
-                        {
-                            if (btnGrid[row, col].Image == null)
-                            {
-                                if (chance == 1)
-                                {
-                                    btnGrid[row, col].Image = Resources.RedCircle;
-                                    btnGrid[row, col].Image.Tag = "RedCircle";
-                                    total++;
-                                }
-                                else if (chance == 2)
-                                {
-                                    btnGrid[row, col].Image = Resources.GreenCircle;
-                                    btnGrid[row, col].Image.Tag = "GreenCircle";
-                                    total++;
-                                }
-                                else if (chance == 3)
-                                {
-                                    btnGrid[row, col].Image = Resources.BlueCircle;
-                                    btnGrid[row, col].Image.Tag = "BlueCircle";
-                                    total++;
-                                }
-                            }
-                        } else if (triangleShape && !circleShape && !squareShape) {
-                            if (chance == 1) {
-                                btnGrid[row, col].Image = Resources.RedTriangle;
-                                total++;
-                            } else if (chance == 2) {
-                                btnGrid[row, col].Image = Resources.GreenTriangle;
-                                total++;
-                            } else if (chance == 3) {
-                                btnGrid[row, col].Image = Resources.BlueTriangle;
-                                total++;
-                            }
-                        } else if (!triangleShape && circleShape && !squareShape) {
-                            if (chance == 1) {
-                                btnGrid[row, col].Image = Resources.RedCircle;
-                                total++;
-                            } else if (chance == 2) {
-                                btnGrid[row, col].Image = Resources.GreenCircle;
-                                total++;
-                            } else if (chance == 3) {
-                                btnGrid[row, col].Image = Resources.BlueCircle;
-                                total++;
-                            }
-                        } else if (!triangleShape && !circleShape && squareShape) {
-                            if (chance == 1) {
-                                btnGrid[row, col].Image = Resources.RedSquare;
-                                total++;
-                            } else if (chance == 2) {
-                                btnGrid[row, col].Image = Resources.GreenSquare;
-                                total++;
-                            } else if (chance == 3) {
-                                btnGrid[row, col].Image = Resources.BlueSquare;
-                                total++;
-                            }
+
+
+                            MessageBox.Show("Oyun bitti.");
+                            break;
                         }
                     }
                 }
@@ -505,27 +150,21 @@ namespace BoardGame
             //timer1.Interval = 100;
         }
 
-        private void Game_Load(object sender, EventArgs e)
-        {
+        private void Game_Load(object sender, EventArgs e) {
         }
-        public void isWin()
-        {
+        public void entityRemover() {
             int counter = 0;
-            for (int i = 0; i < board.Row; i++)
-            {
-                for(int j = 0; j < board.Col; j++)
-                {
-                    if (j + 4 != board.Row && j + 4 < board.Row)
-                    {
-                        if (btnGrid[i, j].Image != null && btnGrid[i, j + 1].Image != null && btnGrid[i, j+ 2].Image != null && btnGrid[i, j + 3].Image != null && btnGrid[i, j + 4].Image != null)
-                        {
-                            if (btnGrid[i, j].Image.Tag == btnGrid[i, j + 1].Image.Tag && btnGrid[i, j + 1].Image.Tag == btnGrid[i, j + 2].Image.Tag && btnGrid[i, j + 2].Image.Tag == btnGrid[i, j + 3].Image.Tag && btnGrid[i, j + 3].Image.Tag == btnGrid[i, j + 4].Image.Tag)
-                            {
+            for (int i = 0; i < board.Row; i++) {
+                for (int j = 0; j < board.Col; j++) {
+                    if (j + 4 != board.Row && j + 4 < board.Row) {
+                        if (btnGrid[i, j].Image != null && btnGrid[i, j + 1].Image != null && btnGrid[i, j + 2].Image != null && btnGrid[i, j + 3].Image != null && btnGrid[i, j + 4].Image != null) {
+                            if (btnGrid[i, j].Image.Tag == btnGrid[i, j + 1].Image.Tag && btnGrid[i, j + 1].Image.Tag == btnGrid[i, j + 2].Image.Tag && btnGrid[i, j + 2].Image.Tag == btnGrid[i, j + 3].Image.Tag && btnGrid[i, j + 3].Image.Tag == btnGrid[i, j + 4].Image.Tag) {
                                 btnGrid[i, j].Image = null;
                                 btnGrid[i, j + 1].Image = null;
                                 btnGrid[i, j + 2].Image = null;
                                 btnGrid[i, j + 3].Image = null;
                                 btnGrid[i, j + 4].Image = null;
+                                total -= 5;
                                 counter++;
                                 break;
                             }
@@ -533,21 +172,17 @@ namespace BoardGame
                     }
                 }
             }
-            for (int i = 0; i < board.Row; i++)
-            {
-                for (int j = 0; j < board.Col; j++)
-                {
-                    if (i + 4 != board.Row && i + 4 < board.Row)
-                    {
-                        if (btnGrid[i, j].Image != null && btnGrid[i+1, j].Image != null && btnGrid[i+2, j].Image != null && btnGrid[i+3, j].Image != null && btnGrid[i+4, j].Image != null)
-                        {
-                            if (btnGrid[i, j].Image.Tag == btnGrid[i+1, j].Image.Tag && btnGrid[i+1, j].Image.Tag == btnGrid[i+2, j].Image.Tag && btnGrid[i+2, j].Image.Tag == btnGrid[i+3, j].Image.Tag && btnGrid[i+3, j].Image.Tag == btnGrid[i+4, j ].Image.Tag)
-                            {
+            for (int i = 0; i < board.Row; i++) {
+                for (int j = 0; j < board.Col; j++) {
+                    if (i + 4 != board.Row && i + 4 < board.Row) {
+                        if (btnGrid[i, j].Image != null && btnGrid[i + 1, j].Image != null && btnGrid[i + 2, j].Image != null && btnGrid[i + 3, j].Image != null && btnGrid[i + 4, j].Image != null) {
+                            if (btnGrid[i, j].Image.Tag == btnGrid[i + 1, j].Image.Tag && btnGrid[i + 1, j].Image.Tag == btnGrid[i + 2, j].Image.Tag && btnGrid[i + 2, j].Image.Tag == btnGrid[i + 3, j].Image.Tag && btnGrid[i + 3, j].Image.Tag == btnGrid[i + 4, j].Image.Tag) {
                                 btnGrid[i, j].Image = null;
-                                btnGrid[i+1, j].Image = null;
-                                btnGrid[i+2, j].Image = null;
-                                btnGrid[i+3, j].Image = null;
-                                btnGrid[i+4, j].Image = null;
+                                btnGrid[i + 1, j].Image = null;
+                                btnGrid[i + 2, j].Image = null;
+                                btnGrid[i + 3, j].Image = null;
+                                btnGrid[i + 4, j].Image = null;
+                                total -= 5;
                                 counter++;
                                 break;
                             }
@@ -556,46 +191,264 @@ namespace BoardGame
                 }
             }
             string difLevel = BoardGame.Properties.Settings.Default.DifLevel;
-            if (difLevel.Equals("Easy")){
+            if (difLevel.Equals("Easy")) {
                 this.txtScore.Text = (Int32.Parse(this.txtScore.Text) + counter).ToString();
-            }
-            else if (difLevel.Equals("Medium"))
-            {
-                this.txtScore.Text = (Int32.Parse(this.txtScore.Text) + counter*3).ToString();
-            }
-            else if (difLevel.Equals("Hard"))
-            {
+            } else if (difLevel.Equals("Medium")) {
+                this.txtScore.Text = (Int32.Parse(this.txtScore.Text) + counter * 3).ToString();
+            } else if (difLevel.Equals("Hard")) {
                 this.txtScore.Text = (Int32.Parse(this.txtScore.Text) + counter * 5).ToString();
             }
 
-        }
-        //public void checkWinner()
-        //{
-        //    for (int i = 0; i < board.Row - 4; i++)
-        //    {
-        //        for (int j = 0; j < board.Col - 4; j++)
-        //        {
-        //            if (btnGrid[i, j].Image == null || btnGrid[i + 1, j].Image == null || btnGrid[i + 2, j].Image == null ||
-        //                                btnGrid[i + 3, j].Image == null || btnGrid[i + 4, j].Image == null) continue;
-        //            if (btnGrid[i, j].Image.Tag == btnGrid[i + 1, j].Image.Tag && btnGrid[i, j].Image.Tag == btnGrid[i + 2, j].Image.Tag && btnGrid[i, j].Image.Tag == btnGrid[i + 3, j].Image.Tag && btnGrid[i, j].Image.Tag == btnGrid[i + 4, j].Image.Tag)
-        //            {
-        //                btnGrid[i, j].Image = null;
-        //                btnGrid[i + 1, j].Image = null;
-        //                btnGrid[i + 2, j].Image = null;
-        //                btnGrid[i + 3, j].Image = null;
-        //                btnGrid[i + 4, j].Image = null;
-        //            }
-        //            if (btnGrid[i, j].Image.Tag == btnGrid[i, j + 1].Image.Tag && btnGrid[i, j + 1].Image.Tag == btnGrid[i, j + 2].Image.Tag && btnGrid[i, j + 3].Image.Tag == btnGrid[i, j + 3].Image.Tag && btnGrid[i, j + 3].Image.Tag == btnGrid[i, j + 4].Image.Tag)
-        //            {
-        //                btnGrid[i, j].Image = null;
-        //                btnGrid[i, j + 1].Image = null;
-        //                btnGrid[i, j + 2].Image = null;
-        //                btnGrid[i, j + 3].Image = null;
-        //                btnGrid[i, j + 4].Image = null;
+            if (Int32.Parse(this.txtScore.Text) > Int32.Parse(this.txtBoxBestScore.Text)) {
+                this.txtBoxBestScore.Text = this.txtScore.Text;
+            }
 
-        //            }
-        //        }
-        //    }
-        //}
+        }
+
+        public List<string> colorRandomiser() {
+            var redColor = BoardGame.Properties.Settings.Default.ColorRed;
+            var greenColor = BoardGame.Properties.Settings.Default.ColorGreen;
+            var blueColor = BoardGame.Properties.Settings.Default.ColorBlue;
+            List<string> colors = new List<string>();
+
+            if (redColor && greenColor && blueColor) {
+                colors.Add("red");
+                colors.Add("green");
+                colors.Add("blue");
+            } else if (!redColor && greenColor && blueColor) {
+                colors.Add("green");
+                colors.Add("blue");
+            } else if (redColor && !greenColor && blueColor) {
+                colors.Add("red");
+                colors.Add("blue");
+            } else if (redColor && greenColor && !blueColor) {
+                colors.Add("red");
+                colors.Add("green");
+            } else if (!redColor && !greenColor && blueColor) {
+                colors.Add("blue");
+            } else if (redColor && !greenColor && !blueColor) {
+                colors.Add("red");
+            } else if (!redColor && greenColor && !blueColor) {
+                colors.Add("green");
+            }
+
+            return colors;
+        }
+
+
+        public void filler() {
+            var squareShape = BoardGame.Properties.Settings.Default.ShapeSquare;
+            var triangleShape = BoardGame.Properties.Settings.Default.ShapeTriangle;
+            var circleShape = BoardGame.Properties.Settings.Default.ShapeCircle;
+
+            int row = 0;
+            int col = 0;
+            do {
+                row = random.Next(0, board.Row);
+                col = random.Next(0, board.Col);
+            }
+            while (btnGrid[row, col].Image != null); // Spawning every time.
+
+            int randomShape = 0;
+            List<string> randomColor = colorRandomiser();
+            int index = random.Next(randomColor.Count);
+
+            if (squareShape && triangleShape && circleShape) {
+                randomShape = random.Next(0, 3);
+                if (randomShape == 0) { // Square
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedSquare;
+                        btnGrid[row, col].Image.Tag = "RedSquare";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueSquare;
+                        btnGrid[row, col].Image.Tag = "BlueSquare";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenSquare;
+                        btnGrid[row, col].Image.Tag = "GreenSquare";
+                        total++;
+                    }
+                } else if (randomShape == 1) { // Triangle
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedTriangle;
+                        btnGrid[row, col].Image.Tag = "RedTriangle";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueTriangle;
+                        btnGrid[row, col].Image.Tag = "BlueTriangle";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenTriangle;
+                        btnGrid[row, col].Image.Tag = "GreenTriangle";
+                        total++;
+                    }
+                } else { // Circle
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedCircle;
+                        btnGrid[row, col].Image.Tag = "RedCircle";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueCircle;
+                        btnGrid[row, col].Image.Tag = "BlueCircle";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenCircle;
+                        btnGrid[row, col].Image.Tag = "GreenCircle";
+                        total++;
+                    }
+                }
+                entityRemover();
+
+            } else if (!squareShape && triangleShape && circleShape) {
+                randomShape = random.Next(0, 2);
+                if (randomShape == 0) {
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedTriangle;
+                        btnGrid[row, col].Image.Tag = "RedTriangle";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueTriangle;
+                        btnGrid[row, col].Image.Tag = "BlueTriangle";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenTriangle;
+                        btnGrid[row, col].Image.Tag = "GreenTriangle";
+                        total++;
+                    }
+                } else {
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedCircle;
+                        btnGrid[row, col].Image.Tag = "RedCircle";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueCircle;
+                        btnGrid[row, col].Image.Tag = "BlueCircle";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenCircle;
+                        btnGrid[row, col].Image.Tag = "GreenCircle";
+                        total++;
+                    }
+                }
+
+            } else if (squareShape && !triangleShape && circleShape) {
+                randomShape = random.Next(0, 2);
+                if (randomShape == 0) {
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedSquare;
+                        btnGrid[row, col].Image.Tag = "RedSquare";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueSquare;
+                        btnGrid[row, col].Image.Tag = "BlueSquare";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenSquare;
+                        btnGrid[row, col].Image.Tag = "GreenSquare";
+                        total++;
+                    }
+                } else {
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedCircle;
+                        btnGrid[row, col].Image.Tag = "RedCircle";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueCircle;
+                        btnGrid[row, col].Image.Tag = "BlueCircle";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenCircle;
+                        btnGrid[row, col].Image.Tag = "GreenCircle";
+                        total++;
+                    }
+                }
+                entityRemover();
+
+            } else if (squareShape && triangleShape && !circleShape) {
+                randomShape = random.Next(0, 2);
+                if (randomShape == 0) {
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedSquare;
+                        btnGrid[row, col].Image.Tag = "RedSquare";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueSquare;
+                        btnGrid[row, col].Image.Tag = "BlueSquare";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenSquare;
+                        btnGrid[row, col].Image.Tag = "GreenSquare";
+                        total++;
+                    }
+                } else {
+                    if (randomColor[index] == "red") {
+                        btnGrid[row, col].Image = Resources.RedTriangle;
+                        btnGrid[row, col].Image.Tag = "RedTriangle";
+                        total++;
+                    } else if (randomColor[index] == "blue") {
+                        btnGrid[row, col].Image = Resources.BlueTriangle;
+                        btnGrid[row, col].Image.Tag = "BlueTriangle";
+                        total++;
+                    } else {
+                        btnGrid[row, col].Image = Resources.GreenTriangle;
+                        btnGrid[row, col].Image.Tag = "GreenTriangle";
+                        total++;
+                    }
+                }
+                entityRemover();
+
+            } else if (!squareShape && !triangleShape && circleShape) {
+                if (randomColor[index] == "red") {
+                    btnGrid[row, col].Image = Resources.RedCircle;
+                    btnGrid[row, col].Image.Tag = "RedCircle";
+                    total++;
+                } else if (randomColor[index] == "blue") {
+                    btnGrid[row, col].Image = Resources.BlueCircle;
+                    btnGrid[row, col].Image.Tag = "BlueCircle";
+                    total++;
+                } else {
+                    btnGrid[row, col].Image = Resources.GreenCircle;
+                    btnGrid[row, col].Image.Tag = "GreenCircle";
+                    total++;
+                }
+                entityRemover();
+            } else if (squareShape && !triangleShape && !circleShape) {
+                if (randomColor[index] == "red") {
+                    btnGrid[row, col].Image = Resources.RedSquare;
+                    btnGrid[row, col].Image.Tag = "RedSquare";
+                    total++;
+                } else if (randomColor[index] == "blue") {
+                    btnGrid[row, col].Image = Resources.BlueSquare;
+                    btnGrid[row, col].Image.Tag = "BlueSquare";
+                    total++;
+                } else {
+                    btnGrid[row, col].Image = Resources.GreenSquare;
+                    btnGrid[row, col].Image.Tag = "GreenSquare";
+                    total++;
+                }
+                entityRemover();
+            } else if (!squareShape && triangleShape && !circleShape) {
+                if (randomColor[index] == "red") {
+                    btnGrid[row, col].Image = Resources.RedTriangle;
+                    btnGrid[row, col].Image.Tag = "RedTriangle";
+                    total++;
+                } else if (randomColor[index] == "blue") {
+                    btnGrid[row, col].Image = Resources.BlueTriangle;
+                    btnGrid[row, col].Image.Tag = "BlueTriangle";
+                    total++;
+                } else {
+                    btnGrid[row, col].Image = Resources.GreenTriangle;
+                    btnGrid[row, col].Image.Tag = "GreenTriangle";
+                    total++;
+                }
+                entityRemover();
+            }
+
+        }
+
+        private void Game_FormClosing(object sender, FormClosingEventArgs e) {
+            total = 0;
+        }
     }
 }
