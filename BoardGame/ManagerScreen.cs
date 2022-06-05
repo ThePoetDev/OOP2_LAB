@@ -34,16 +34,23 @@ namespace BoardGame
                 MessageBox.Show("Please select row then use bring info button.");
                 return;
             }
-            txtboxUsername.Text = dataGridViewList.CurrentRow.Cells[1].Value.ToString();
-            txtboxNameSurname.Text = dataGridViewList.CurrentRow.Cells[3].Value.ToString();
-            txtboxPhonenum.Text = dataGridViewList.CurrentRow.Cells[4].Value.ToString();
-            txtboxAddress.Text = dataGridViewList.CurrentRow.Cells[5].Value.ToString();
-            txtboxCity.Text = dataGridViewList.CurrentRow.Cells[6].Value.ToString();
-            txtboxCountry.Text = dataGridViewList.CurrentRow.Cells[7].Value.ToString();
-            txtboxEmail.Text = dataGridViewList.CurrentRow.Cells[8].Value.ToString();
+            txtboxUsername.Text = dataGridViewList.CurrentRow.Cells[0].Value.ToString();
+            txtboxNameSurname.Text = dataGridViewList.CurrentRow.Cells[1].Value.ToString();
+            txtboxPhonenum.Text = dataGridViewList.CurrentRow.Cells[2].Value.ToString();
+            txtboxAddress.Text = dataGridViewList.CurrentRow.Cells[3].Value.ToString();
+            txtboxCity.Text = dataGridViewList.CurrentRow.Cells[4].Value.ToString();
+            txtboxCountry.Text = dataGridViewList.CurrentRow.Cells[5].Value.ToString();
+            txtboxEmail.Text = dataGridViewList.CurrentRow.Cells[6].Value.ToString();
+            txtBoxBestScore.Text = dataGridViewList.CurrentRow.Cells[7].Value.ToString();
         }
 
         private void btnAddNewUser_Click(object sender, EventArgs e) {
+            if (this.txtBoxPassword.Text == "") {
+                MessageBox.Show("Please fill password field.");
+                return;
+            }
+
+
             try {
                 if (sqlConnection.State == ConnectionState.Closed) {
                     sqlConnection.Open();
@@ -64,8 +71,8 @@ namespace BoardGame
 
                 rdr.Close();
 
-                string registery = "INSERT INTO Users (username,password,name_surname,phone_number,address,city,country,email,admin) " +
-                    "values(@username, @password, @name_surname, @phone_number, @address, @city, @country, @email, @admin)";
+                string registery = "INSERT INTO Users (username,password,name_surname,phone_number,address,city,country,email,best_score,admin) " +
+                    "values(@username, @password, @name_surname, @phone_number, @address, @city, @country, @email,@bestscore,@admin)";
 
                 sqlCommand = new SqlCommand(registery, sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
@@ -76,6 +83,7 @@ namespace BoardGame
                 sqlCommand.Parameters.AddWithValue("@city", txtboxCity.Text);
                 sqlCommand.Parameters.AddWithValue("@country", txtboxCountry.Text);
                 sqlCommand.Parameters.AddWithValue("@email", txtboxEmail.Text);
+                sqlCommand.Parameters.AddWithValue("@bestscore", txtBoxBestScore.Text);
                 sqlCommand.Parameters.AddWithValue("@admin", "0");
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();
@@ -117,13 +125,14 @@ namespace BoardGame
 
                 rdr.Close();
 
-                sqlCommand = new SqlCommand("UPDATE Users SET name_surname = @name_surname,phone_number = @phone_number,address = @address,city = @city,country = @country,email = @email WHERE username = @username", sqlConnection);
+                sqlCommand = new SqlCommand("UPDATE Users SET name_surname = @name_surname,phone_number = @phone_number,address = @address,city = @city,country = @country,best_score = @bestscore,email = @email WHERE username = @username", sqlConnection);
                 sqlCommand.Parameters.AddWithValue("@username", txtboxUsername.Text);
                 sqlCommand.Parameters.AddWithValue("@name_surname", txtboxNameSurname.Text);
                 sqlCommand.Parameters.AddWithValue("@phone_number", txtboxPhonenum.Text);
                 sqlCommand.Parameters.AddWithValue("@address", txtboxAddress.Text);
                 sqlCommand.Parameters.AddWithValue("@city", txtboxCity.Text);
                 sqlCommand.Parameters.AddWithValue("@country", txtboxCountry.Text);
+                sqlCommand.Parameters.AddWithValue("@bestscore", txtBoxBestScore.Text);
                 sqlCommand.Parameters.AddWithValue("@email", txtboxEmail.Text);
                 sqlCommand.ExecuteNonQuery();
                 sqlConnection.Close();
@@ -137,31 +146,35 @@ namespace BoardGame
 
         private void btnDeleteUser_Click(object sender, EventArgs e) {
             if (dataGridViewList.CurrentRow == null) {
-                MessageBox.Show("Please select row then use bring info button.");
+                MessageBox.Show("Please list users and select row then use 'Bring Info' button.");
                 return;
             }
 
-            if (dataGridViewList.CurrentRow.Cells[1].Value.ToString().Equals("user") || dataGridViewList.CurrentRow.Cells[1].Value.ToString().Equals("admin")) {
+            if (dataGridViewList.CurrentRow.Cells[0].Value.ToString().Equals("user") || dataGridViewList.CurrentRow.Cells[1].Value.ToString().Equals("admin")) {
                 MessageBox.Show("You cannot delete this account.");
                 return;
             }
 
+            DialogResult dialogResult = MessageBox.Show("The user named '" + dataGridViewList.CurrentRow.Cells[0].Value.ToString() + "' gonna be deleted. Are sure you want to delete?", "Deleting confirmation", MessageBoxButtons.YesNo);
 
-            try {
-                if (sqlConnection.State == ConnectionState.Closed) {
-                    sqlConnection.Open();
+            if(dialogResult == DialogResult.Yes) {
+                try {
+                    if (sqlConnection.State == ConnectionState.Closed) {
+                        sqlConnection.Open();
+                    }
+
+                    SqlCommand sqlCommand = new SqlCommand("DELETE FROM Users WHERE username = @username", sqlConnection);
+                    sqlCommand.Parameters.AddWithValue("@username", dataGridViewList.CurrentRow.Cells[0].Value.ToString());
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                    reloadTable();
+
                 }
-
-                SqlCommand sqlCommand = new SqlCommand("DELETE FROM Users WHERE username = @username", sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@username", dataGridViewList.CurrentRow.Cells[1].Value.ToString());
-                sqlCommand.ExecuteNonQuery();
-                sqlConnection.Close();
-                reloadTable();
-
+                catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message);
-            }
+
 
         }
 
@@ -192,7 +205,7 @@ namespace BoardGame
                     sqlConnection.Open();
                 }
 
-                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Users", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("SELECT username, name_surname, phone_number, address, city, country, email, best_score FROM Users", sqlConnection);
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
@@ -206,5 +219,14 @@ namespace BoardGame
             }
         }
 
+        private void btnSort_Click(object sender, EventArgs e) {
+            if (dataGridViewList.Rows.Count == 0) {
+                MessageBox.Show("Please list users then use 'Sort By Users' button.");
+                return;
+            }
+
+            this.dataGridViewList.Sort(this.dataGridViewList.Columns["best_score"], ListSortDirection.Descending);
+
+        }
     }
 }
