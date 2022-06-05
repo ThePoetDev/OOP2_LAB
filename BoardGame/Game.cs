@@ -18,6 +18,7 @@ namespace BoardGame {
         Random random = new Random();
         static string connectionString = BoardGame.Properties.Settings.Default.BoardgameConnectionString;
         static int total = 0;
+        static int tempTopScore = 0;
 
         public Game() {
             InitializeComponent();
@@ -40,6 +41,8 @@ namespace BoardGame {
                 }
 
                 rdr.Close();
+
+                tempTopScore = Int32.Parse(this.txtBoxBestScore.Text);
 
             }
             catch (Exception ex) {
@@ -114,6 +117,8 @@ namespace BoardGame {
                 if (btnGrid[x1, y1].Image == null) {
                     btnGrid[x1, y1].Image = btnGrid[x, y].Image;
                     btnGrid[x, y].Image = null;
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..//..//sounds//Movement.wav");
+                    player.Play();
                 } else {
                     return;
                 }
@@ -122,6 +127,14 @@ namespace BoardGame {
                     for (int i = 0; i < 3; i++) {
                         filler();
                         if (total == board.Row * board.Col) {
+                            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..//..//sounds//GameOver.wav");
+                            player.Play();
+
+                            if (Int32.Parse(this.txtScore.Text) > tempTopScore) {
+                                MessageBox.Show("You lose! New Best Score: " + txtScore.Text);
+                            } else {
+                                MessageBox.Show("You lose! Your score is : " + txtScore.Text);
+                            }
 
                             SqlConnection sqlConnection = new SqlConnection(connectionString);
                             try {
@@ -139,9 +152,7 @@ namespace BoardGame {
                             catch (Exception ex) {
                                 MessageBox.Show(ex.Message);
                             }
-
-
-                            MessageBox.Show("Oyun bitti.");
+                            this.Hide();
                             break;
                         }
                     }
@@ -165,6 +176,8 @@ namespace BoardGame {
                                 btnGrid[i, j + 3].Image = null;
                                 btnGrid[i, j + 4].Image = null;
                                 total -= 5;
+                                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..//..//sounds//Success.wav");
+                                player.Play();
                                 counter++;
                                 break;
                             }
@@ -183,6 +196,8 @@ namespace BoardGame {
                                 btnGrid[i + 3, j].Image = null;
                                 btnGrid[i + 4, j].Image = null;
                                 total -= 5;
+                                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"..//..//sounds//Success.wav");
+                                player.Play();
                                 counter++;
                                 break;
                             }
@@ -449,6 +464,7 @@ namespace BoardGame {
 
         private void Game_FormClosing(object sender, FormClosingEventArgs e) {
             total = 0;
+            tempTopScore = 0;
         }
     }
 }
