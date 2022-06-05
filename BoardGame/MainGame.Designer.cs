@@ -44,7 +44,7 @@ namespace BoardGame
             this.mainSettingsBtn.Margin = new System.Windows.Forms.Padding(4);
             this.mainSettingsBtn.Name = "mainSettingsBtn";
             this.mainSettingsBtn.Size = new System.Drawing.Size(207, 73);
-            this.mainSettingsBtn.TabIndex = 0;
+            this.mainSettingsBtn.TabIndex = 2;
             this.mainSettingsBtn.Text = "Settings";
             this.mainSettingsBtn.UseVisualStyleBackColor = false;
             this.mainSettingsBtn.Click += new System.EventHandler(this.mainSettingsBtn_Click);
@@ -56,7 +56,7 @@ namespace BoardGame
             this.btnProfile.Margin = new System.Windows.Forms.Padding(4);
             this.btnProfile.Name = "btnProfile";
             this.btnProfile.Size = new System.Drawing.Size(207, 73);
-            this.btnProfile.TabIndex = 0;
+            this.btnProfile.TabIndex = 1;
             this.btnProfile.Text = "Profile";
             this.btnProfile.UseVisualStyleBackColor = false;
             this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
@@ -68,7 +68,7 @@ namespace BoardGame
             this.btnBack.Margin = new System.Windows.Forms.Padding(4);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(207, 73);
-            this.btnBack.TabIndex = 0;
+            this.btnBack.TabIndex = 5;
             this.btnBack.Text = "Log Out";
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
@@ -80,7 +80,7 @@ namespace BoardGame
             this.btnCredits.Margin = new System.Windows.Forms.Padding(4);
             this.btnCredits.Name = "btnCredits";
             this.btnCredits.Size = new System.Drawing.Size(207, 73);
-            this.btnCredits.TabIndex = 0;
+            this.btnCredits.TabIndex = 3;
             this.btnCredits.Text = "Credits";
             this.btnCredits.UseVisualStyleBackColor = false;
             this.btnCredits.Click += new System.EventHandler(this.btnCredits_Click);
@@ -103,7 +103,7 @@ namespace BoardGame
             this.btnHelp.Location = new System.Drawing.Point(427, 388);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(207, 73);
-            this.btnHelp.TabIndex = 1;
+            this.btnHelp.TabIndex = 4;
             this.btnHelp.Text = "Help";
             this.btnHelp.UseVisualStyleBackColor = false;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);

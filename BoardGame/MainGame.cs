@@ -34,6 +34,7 @@ namespace BoardGame
         }
 
         private void btnBack_Click(object sender, EventArgs e) {
+            this.Close();
             LogIn logIn = new LogIn();
             if (logIn.ShowDialog() == System.Windows.Forms.DialogResult.No)
                 this.Close();
