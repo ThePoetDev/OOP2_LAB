@@ -31,6 +31,11 @@ namespace BoardGame
                 MessageBox.Show("Username or password cannot be empty.");
                 return;
             }
+            if(this.txtUsername.Text == "user"|| this.txtUsername.Text == "admin")
+            {
+                MessageBox.Show("This account name cannot be created.");
+                return;
+            }
 
             try {
                 if(sqlConnection.State == ConnectionState.Closed) {

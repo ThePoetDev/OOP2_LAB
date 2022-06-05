@@ -35,6 +35,20 @@ namespace BoardGame
 
         private void btnLogIn_Click(object sender, EventArgs e)
         {
+            if (this.txtUsername.Text == "user"&&this.txtPassword.Text=="user")
+            {
+                this.Visible = false;
+                MainGame mainGame = new MainGame();
+                mainGame.Show();
+                return;
+            }
+            if(this.txtUsername.Text == "admin" && this.txtPassword.Text == "admin")
+            {
+                this.Visible = false;
+                ManagerScreen manager = new ManagerScreen();
+                manager.Show();
+                return;
+            }
             try {
                 if(sqlConnection.State == ConnectionState.Closed) {
                     sqlConnection.Open();
