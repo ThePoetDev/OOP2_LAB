@@ -45,6 +45,11 @@ namespace BoardGame
         }
 
         private void btnAddNewUser_Click(object sender, EventArgs e) {
+            if (this.txtboxUsername.Text == "user" || this.txtboxUsername.Text == "admin")
+            {
+                MessageBox.Show("This account name cannot be created.");
+                return;
+            }
             if (this.txtBoxPassword.Text == "") {
                 MessageBox.Show("Please fill password field.");
                 return;
