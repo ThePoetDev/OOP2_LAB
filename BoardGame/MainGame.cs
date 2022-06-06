@@ -58,5 +58,12 @@ namespace BoardGame
             if (helpScreen.ShowDialog() == System.Windows.Forms.DialogResult.No)
                 this.Close();
         }
+
+        private void btnMulti_Click(object sender, EventArgs e)
+        {
+            Server server = new Server();
+            if (server.ShowDialog() == System.Windows.Forms.DialogResult.No)
+                this.Close();
+        }
     }
 }
