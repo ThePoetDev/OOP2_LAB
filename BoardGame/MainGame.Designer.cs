@@ -35,6 +35,7 @@ namespace BoardGame
             this.btnCredits = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
+            this.btnMulti = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // mainSettingsBtn
@@ -88,7 +89,7 @@ namespace BoardGame
             // btnPlay
             // 
             this.btnPlay.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnPlay.Location = new System.Drawing.Point(427, 65);
+            this.btnPlay.Location = new System.Drawing.Point(300, 65);
             this.btnPlay.Margin = new System.Windows.Forms.Padding(4);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(207, 73);
@@ -108,12 +109,25 @@ namespace BoardGame
             this.btnHelp.UseVisualStyleBackColor = false;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
+            // btnMulti
+            // 
+            this.btnMulti.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnMulti.Location = new System.Drawing.Point(547, 65);
+            this.btnMulti.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMulti.Name = "btnMulti";
+            this.btnMulti.Size = new System.Drawing.Size(207, 73);
+            this.btnMulti.TabIndex = 6;
+            this.btnMulti.Text = "Multiplay";
+            this.btnMulti.UseVisualStyleBackColor = false;
+            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click);
+            // 
             // MainGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.btnMulti);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnPlay);
@@ -136,5 +150,6 @@ namespace BoardGame
         private System.Windows.Forms.Button btnCredits;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnHelp;
+        private System.Windows.Forms.Button btnMulti;
     }
 }

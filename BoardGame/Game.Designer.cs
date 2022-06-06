@@ -35,6 +35,8 @@
             this.lblScore = new System.Windows.Forms.Label();
             this.lblBestScore = new System.Windows.Forms.Label();
             this.txtBoxBestScore = new System.Windows.Forms.TextBox();
+            this.lblTurn = new System.Windows.Forms.Label();
+            this.lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GameBoard)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,18 +44,19 @@
             // 
             this.GameBoard.BackColor = System.Drawing.Color.SkyBlue;
             this.GameBoard.ErrorImage = global::BoardGame.Properties.Resources.RedTriangle;
-            this.GameBoard.Location = new System.Drawing.Point(9, 10);
+            this.GameBoard.Location = new System.Drawing.Point(12, 12);
+            this.GameBoard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GameBoard.Name = "GameBoard";
-            this.GameBoard.Size = new System.Drawing.Size(581, 630);
+            this.GameBoard.Size = new System.Drawing.Size(775, 775);
             this.GameBoard.TabIndex = 0;
             this.GameBoard.TabStop = false;
             // 
             // txtScore
             // 
-            this.txtScore.Location = new System.Drawing.Point(680, 93);
-            this.txtScore.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtScore.Location = new System.Drawing.Point(907, 114);
+            this.txtScore.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtScore.Name = "txtScore";
-            this.txtScore.Size = new System.Drawing.Size(76, 20);
+            this.txtScore.Size = new System.Drawing.Size(100, 22);
             this.txtScore.TabIndex = 2;
             this.txtScore.Text = "0";
             this.txtScore.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -61,42 +64,65 @@
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(611, 96);
-            this.lblScore.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblScore.Location = new System.Drawing.Point(815, 118);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(38, 13);
+            this.lblScore.Size = new System.Drawing.Size(49, 17);
             this.lblScore.TabIndex = 3;
             this.lblScore.Text = "Score:";
             // 
             // lblBestScore
             // 
             this.lblBestScore.AutoSize = true;
-            this.lblBestScore.Location = new System.Drawing.Point(611, 142);
+            this.lblBestScore.Location = new System.Drawing.Point(815, 175);
+            this.lblBestScore.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBestScore.Name = "lblBestScore";
-            this.lblBestScore.Size = new System.Drawing.Size(65, 13);
+            this.lblBestScore.Size = new System.Drawing.Size(85, 17);
             this.lblBestScore.TabIndex = 4;
             this.lblBestScore.Text = "Best Score: ";
             // 
             // txtBoxBestScore
             // 
-            this.txtBoxBestScore.Location = new System.Drawing.Point(680, 139);
+            this.txtBoxBestScore.Location = new System.Drawing.Point(907, 171);
+            this.txtBoxBestScore.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxBestScore.Name = "txtBoxBestScore";
-            this.txtBoxBestScore.Size = new System.Drawing.Size(76, 20);
+            this.txtBoxBestScore.Size = new System.Drawing.Size(100, 22);
             this.txtBoxBestScore.TabIndex = 5;
             this.txtBoxBestScore.Text = "0";
             this.txtBoxBestScore.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // lblTurn
+            // 
+            this.lblTurn.AutoSize = true;
+            this.lblTurn.Location = new System.Drawing.Point(852, 287);
+            this.lblTurn.MaximumSize = new System.Drawing.Size(15, 15);
+            this.lblTurn.Name = "lblTurn";
+            this.lblTurn.Size = new System.Drawing.Size(12, 15);
+            this.lblTurn.TabIndex = 6;
+            this.lblTurn.Text = " ";
+            // 
+            // lbl
+            // 
+            this.lbl.AutoSize = true;
+            this.lbl.Location = new System.Drawing.Point(818, 287);
+            this.lbl.Name = "lbl";
+            this.lbl.Size = new System.Drawing.Size(12, 17);
+            this.lbl.TabIndex = 7;
+            this.lbl.Text = " ";
+            // 
             // Game
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(785, 673);
+            this.ClientSize = new System.Drawing.Size(1047, 828);
+            this.Controls.Add(this.lbl);
+            this.Controls.Add(this.lblTurn);
             this.Controls.Add(this.txtBoxBestScore);
             this.Controls.Add(this.lblBestScore);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.GameBoard);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Game";
             this.Text = "Game";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Game_FormClosing);
@@ -115,5 +141,7 @@
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label lblBestScore;
         private System.Windows.Forms.TextBox txtBoxBestScore;
+        private System.Windows.Forms.Label lblTurn;
+        private System.Windows.Forms.Label lbl;
     }
 }

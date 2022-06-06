@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Net.Sockets;
 
 namespace BoardGame {
     public partial class Game : Form {
@@ -22,7 +23,6 @@ namespace BoardGame {
 
         public Game() {
             InitializeComponent();
-            populateGrid();
         }
         private void populateGrid() {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -162,6 +162,7 @@ namespace BoardGame {
         }
 
         private void Game_Load(object sender, EventArgs e) {
+            populateGrid();
         }
         public void entityRemover() {
             int counter = 0;
@@ -461,10 +462,71 @@ namespace BoardGame {
             }
 
         }
+        static public bool host = false;
+        public Game(bool isHost,string ip = null)
+        {
+            InitializeComponent();
+            MessageReceiver.DoWork += MessageReceiver_DoWork;
+            CheckForIllegalCrossThreadCalls = false;
+            if (isHost)
+            {
+                server = new TcpListener(System.Net.IPAddress.Any, 5732);
+                server.Start();
+                MessageBox.Show("Waiting connection!");
+                socket = server.AcceptSocket();
+                MessageReceiver.RunWorkerAsync();
+            }
+            else
+            {
+                try
+                {
+                    tcpClient = new TcpClient(ip, 5732);
+                    socket = tcpClient.Client;
+                    MessageReceiver.RunWorkerAsync();
+                    MessageBox.Show("Connected!");
+
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Close();
+                }
+            }
+        }
+
+        private void MessageReceiver_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (!host)
+            {
+                byte[] buffer = new byte[1024];
+                int numberOfBytesReceived = socket.Receive(buffer);
+                byte[] receivedBytes = new byte[numberOfBytesReceived];
+                Array.Copy(buffer, receivedBytes, numberOfBytesReceived);
+                string receivedMessage = Encoding.Default.GetString(receivedBytes);
+                socket.Send(receivedBytes);
+            }
+            else
+            {
+                byte[] buffer = new byte[1024];
+                int numberOfBytesReceived = socket.Receive(buffer);
+                byte[] receivedBytes = new byte[numberOfBytesReceived];
+                Array.Copy(buffer, receivedBytes, numberOfBytesReceived);
+                string receivedMessage = Encoding.Default.GetString(receivedBytes);
+                socket.Send(receivedBytes);
+            }
+        }
+
+        private Socket socket;
+        private BackgroundWorker MessageReceiver = new BackgroundWorker();
+        private TcpListener server = null;
+        private TcpClient tcpClient;
 
         private void Game_FormClosing(object sender, FormClosingEventArgs e) {
             total = 0;
             tempTopScore = 0;
+            MessageReceiver.WorkerSupportsCancellation = true;
+            MessageReceiver.CancelAsync();
+            if (server != null)
+                server.Stop();
         }
     }
 }
