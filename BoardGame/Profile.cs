@@ -53,11 +53,11 @@ namespace BoardGame {
 
         }
 
-        private void btnBack_Click(object sender, EventArgs e) {
+        /*private void btnBack_Click(object sender, EventArgs e) {
             this.Hide();
             MainGame mainGame = new MainGame();
             mainGame.Show();
-        }
+        }*/
 
         private void btnSave_Click(object sender, EventArgs e) {
             string hashedPassword = "";

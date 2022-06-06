@@ -40,7 +40,6 @@ namespace BoardGame {
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtboxCountry = new System.Windows.Forms.TextBox();
             this.txtboxEmail = new System.Windows.Forms.TextBox();
-            this.btnBack = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -174,21 +173,10 @@ namespace BoardGame {
             this.txtboxEmail.Size = new System.Drawing.Size(245, 20);
             this.txtboxEmail.TabIndex = 8;
             // 
-            // btnBack
-            // 
-            this.btnBack.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnBack.Location = new System.Drawing.Point(318, 399);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(141, 60);
-            this.btnBack.TabIndex = 9;
-            this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnSave.Location = new System.Drawing.Point(318, 333);
+            this.btnSave.Location = new System.Drawing.Point(319, 342);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(141, 60);
             this.btnSave.TabIndex = 10;
@@ -201,9 +189,8 @@ namespace BoardGame {
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(834, 472);
+            this.ClientSize = new System.Drawing.Size(794, 436);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.txtboxEmail);
             this.Controls.Add(this.txtboxCountry);
             this.Controls.Add(this.txtboxCity);
@@ -246,7 +233,6 @@ namespace BoardGame {
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtboxCountry;
         private System.Windows.Forms.TextBox txtboxEmail;
-        private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnSave;
     }
 }
