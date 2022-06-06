@@ -155,11 +155,6 @@ namespace BoardGame
                 return;
             }
 
-            if (dataGridViewList.CurrentRow.Cells[0].Value.ToString().Equals("user") || dataGridViewList.CurrentRow.Cells[1].Value.ToString().Equals("admin")) {
-                MessageBox.Show("You cannot delete this account.");
-                return;
-            }
-
             DialogResult dialogResult = MessageBox.Show("The user named '" + dataGridViewList.CurrentRow.Cells[0].Value.ToString() + "' gonna be deleted. Are sure you want to delete?", "Deleting confirmation", MessageBoxButtons.YesNo);
 
             if(dialogResult == DialogResult.Yes) {
