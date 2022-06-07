@@ -116,14 +116,17 @@ namespace BoardGame {
             } else {
                 BoardGame.Properties.Settings.Default.ShapeTriangle = false;
             }
-
+            if ((Int32.Parse(this.borderTextboxX.Text) > 14 || Int32.Parse(this.borderTextboxX.Text) < 10)|| (Int32.Parse(this.borderTextboxY.Text) > 14 || Int32.Parse(this.borderTextboxY.Text) < 10))
+            {
+                MessageBox.Show("Custom level allows you set X-Y value between 9-15");
+                return;
+            }
             BoardGame.Properties.Settings.Default.BorderX = this.borderTextboxX.Text;
-            BoardGame.Properties.Settings.Default.BorderY = this.borderTextboxY.Text;
-            BoardGame.Properties.Settings.Default.Save();
+                BoardGame.Properties.Settings.Default.BorderY = this.borderTextboxY.Text;
+                BoardGame.Properties.Settings.Default.Save();
 
             MessageBox.Show("Settings successfully saved.");
         }
-
         private void backButton_Click(object sender, EventArgs e) {
             this.Visible = false;
         }

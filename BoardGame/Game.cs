@@ -214,6 +214,10 @@ namespace BoardGame {
             } else if (difLevel.Equals("Hard")) {
                 this.txtScore.Text = (Int32.Parse(this.txtScore.Text) + counter * 5).ToString();
             }
+            else if (difLevel.Equals("Custom"))
+            {
+                this.txtScore.Text = (Int32.Parse(this.txtScore.Text) + counter * 2).ToString();
+            }
 
             if (Int32.Parse(this.txtScore.Text) > Int32.Parse(this.txtBoxBestScore.Text)) {
                 this.txtBoxBestScore.Text = this.txtScore.Text;
